@@ -62,6 +62,23 @@ documentacao/modelo-de-dados.md  Esquema das abas
 
 Cada ficha traz atributos, salvaguardas, perícias, ataques, magias, traços, equipamento, proficiências, personalidade, história e anotações.
 
+## PWA (app instalável)
+
+O painel é um **PWA**: dá pra instalar na tela inicial do celular e abre em tela cheia, como um app.
+
+- **Banner "Instalar"** — aparece no Android/Chrome/Edge (evento `beforeinstallprompt`). No iPhone/Safari, mostra a instrução manual (Compartilhar ▸ Adicionar à Tela de Início).
+- **Banner "Nova versão disponível"** — aparece quando há atualização publicada; tocar em **Atualizar** ativa a nova versão e recarrega.
+- Arquivos: `manifest.webmanifest`, `service-worker.js`, `js/pwa.js`, `icons/`.
+
+### ⚠️ Regra de ouro ao publicar mudanças no front
+
+Toda vez que mudar HTML/CSS/JS, **suba o `VERSION`** no topo de `service-worker.js`
+(ex.: `'v1'` → `'v2'`) antes do `git push`. É isso que faz o navegador detectar a
+atualização e mostrar o banner para os jogadores. Sem bumpar a versão, o app pode
+continuar servindo os arquivos do cache antigo.
+
+> O Service Worker **não** faz cache da API (script.google.com) — só do site. Os dados continuam ao vivo.
+
 ## Segurança (honesto)
 
 O `TOKEN` em `js/config.js` é **público** (repositório aberto), então serve apenas para evitar acesso casual/bots à API — não é segurança real. Para controle por jogador (cada um edita só a própria ficha), o próximo passo é login por conta Google no Apps Script.
