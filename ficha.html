@@ -4,14 +4,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Ficha — Onze Dias Até o Céu</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#0e1b2a">
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Onze Dias">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <a class="voltar" href="index.html">‹ Voltar ao painel</a>
   <div id="ficha"><div class="carregando">Carregando ficha…</div></div>
 
+  <div id="banner-update" class="banner banner-update">
+    <span class="banner-txt">Nova versão disponível.</span>
+    <button class="banner-btn">Atualizar</button>
+  </div>
+  <div id="banner-install" class="banner">
+    <span class="banner-txt">Instale o painel no seu celular.</span>
+    <button class="banner-btn">Instalar</button>
+    <button class="banner-x" aria-label="Fechar">✕</button>
+  </div>
+
   <script src="js/config.js"></script>
   <script src="js/api.js"></script>
   <script src="js/ficha.js"></script>
+  <script src="js/pwa.js"></script>
 </body>
 </html>

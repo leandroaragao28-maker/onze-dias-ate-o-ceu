@@ -100,3 +100,18 @@ input, select { background: #0a1622; border: 1px solid var(--line); color: var(-
 .atk { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
 .atk:last-child { border-bottom: none; }
 .atk .b { color: var(--gold); font-weight: 700; }
+
+/* Banners de PWA (instalar / atualizar) */
+.banner {
+  display: none; position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: 12px; width: calc(100% - 24px); max-width: 696px;
+  background: var(--card2); border: 1px solid var(--gold); border-radius: 12px;
+  padding: 11px 14px; align-items: center; gap: 10px; z-index: 1000;
+  box-shadow: 0 6px 24px rgba(0,0,0,.45);
+}
+.banner.show { display: flex; }
+.banner-txt { flex: 1; font-size: 13px; line-height: 1.35; color: var(--ink); }
+.banner-btn { background: var(--gold); color: #1a1304; border: none; border-radius: 8px; padding: 9px 14px; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap; }
+.banner-x { background: transparent; border: none; color: var(--muted); font-size: 16px; cursor: pointer; padding: 4px 6px; }
+.banner-update { border-color: var(--green); }
+.banner-update .banner-btn { background: var(--green); color: #07210f; }
