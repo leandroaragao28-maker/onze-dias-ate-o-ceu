@@ -29,6 +29,7 @@ window.API = (function () {
     salvarPersonagem: (dados) => post('salvarPersonagem', { dados: dados }),
     excluirPersonagem: (id) => post('excluirPersonagem', { id: id }),
     registrarRolagem: (dados) => post('registrarRolagem', { dados: dados }),
+    salvarCombate: (dados) => post('salvarCombate', { dados: dados }),
     configurado: () => CONFIG.API_URL.indexOf('COLE_AQUI') === -1
   };
 })();

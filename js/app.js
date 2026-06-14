@@ -1,6 +1,8 @@
 // app.js — painel principal: polling do estado, cards da tripulação e rolagem de dados.
 let personagens = [];
 let rolagens = [];
+let combate = { ativo: false, round: 0, turno: 0, ordem: [] };
+let combateStr = '';
 let vantDesv = 0;
 let online = false;
 
@@ -34,6 +36,7 @@ async function carregar() {
     if (e.erro) return setStatus(false, 'erro: ' + e.erro);
     render(e.personagens || []);
     renderFeed(e.rolagens || []);
+    aplicarCombate(e.combate);
     setStatus(true, 'Atualizado às ' + new Date().toLocaleTimeString('pt-BR'));
   } catch (err) {
     setStatus(false, 'sem conexão');
@@ -139,6 +142,108 @@ function recriarIdentidade() {
   if (el) el.dataset.estado = '';
   renderIdentidade();
   render(personagens);
+  combateStr = ''; renderCombate(); // controles do mestre aparecem/somem na hora
+}
+
+/* ------------------------------ combate / iniciativa ------------------------------ */
+function combatePadrao() { return { ativo: false, round: 0, turno: 0, ordem: [] }; }
+
+function aplicarCombate(c) {
+  combate = c || combatePadrao();
+  const s = JSON.stringify(combate) + '|' + Identidade.ehMestre();
+  if (s === combateStr) return; // sem mudança → não redesenha
+  combateStr = s;
+  renderCombate();
+}
+
+function renderCombate() {
+  const el = document.getElementById('iniciativa');
+  if (!el) return;
+  const mestre = Identidade.ehMestre();
+  const ord = combate.ordem || [];
+
+  if (!combate.ativo || !ord.length) {
+    let h = '<div class="comb-vazio">Nenhum combate em andamento.</div>';
+    if (mestre) h += '<div class="comb-acoes">' +
+      '<button class="btn-id" onclick="rolarIniciativaHerois()">🎲 Rolar iniciativa dos heróis</button>' +
+      '<button class="btn-id sec" onclick="addInimigo()">+ Inimigo</button></div>';
+    el.innerHTML = h;
+    return;
+  }
+
+  const linhas = ord.map((c, i) => {
+    const p = c.refId ? personagens.find(x => x.id === c.refId) : null;
+    const pv = p ? ' <span class="comb-pv">' + p.pv_atual + '/' + p.pv_max + '</span>' : '';
+    const atual = i === combate.turno;
+    const rm = mestre ? '<button class="comb-x" onclick="removerCombatente(\'' + c.id + '\')">✕</button>' : '';
+    return '<div class="comb-item' + (atual ? ' atual' : '') + '">' +
+      '<span class="comb-ini">' + c.valor + '</span>' +
+      '<span class="comb-nome">' + (atual ? '▸ ' : '') + esc(c.nome) + pv + '</span>' + rm + '</div>';
+  }).join('');
+
+  let ctrl = '';
+  if (mestre) ctrl = '<div class="comb-acoes">' +
+    '<button class="btn-id" onclick="proximoTurno()">Próximo ▸</button>' +
+    '<button class="btn-id sec" onclick="addInimigo()">+ Inimigo</button>' +
+    '<button class="btn-id sec" onclick="limparCombate()">Limpar</button></div>';
+
+  el.innerHTML = '<div class="comb-cab">Rodada ' + combate.round + '</div>' + linhas + ctrl;
+}
+
+function salvarCombate(novo) {
+  combate = novo;
+  combateStr = '';
+  aplicarCombate(novo);
+  if (API.configurado()) API.salvarCombate(novo).catch(() => {});
+}
+
+function ordenar_(ordem, idAtual) {
+  ordem = ordem.slice().sort((a, b) => b.valor - a.valor);
+  let turno = 0;
+  if (idAtual) { const i = ordem.findIndex(c => c.id === idAtual); if (i >= 0) turno = i; }
+  return { ordem: ordem, turno: turno };
+}
+
+function rolarIniciativaHerois() {
+  if (!personagens.length) return;
+  const ordem = personagens.map(p => ({
+    id: 'pc-' + p.id, nome: p.nome, valor: rolarUm(20) + (p.iniciativa || 0), refId: p.id
+  }));
+  ordem.sort((a, b) => b.valor - a.valor);
+  salvarCombate({ ativo: true, round: 1, turno: 0, ordem: ordem });
+}
+
+function addInimigo() {
+  const nome = prompt('Nome do inimigo:');
+  if (!nome || !nome.trim()) return;
+  const v = prompt('Iniciativa (número, ou vazio para rolar d20):', '');
+  if (v === null) return;
+  let valor = v.trim() === '' ? rolarUm(20) : parseInt(v, 10);
+  if (isNaN(valor)) valor = rolarUm(20);
+  const idAtual = (combate.ordem[combate.turno] || {}).id;
+  const r = ordenar_(combate.ordem.concat([{ id: 'npc-' + Date.now(), nome: nome.trim(), valor: valor, refId: null }]), idAtual);
+  salvarCombate({ ativo: true, round: combate.round || 1, turno: r.turno, ordem: r.ordem });
+}
+
+function removerCombatente(id) {
+  const idAtual = (combate.ordem[combate.turno] || {}).id;
+  const ordem = combate.ordem.filter(c => c.id !== id);
+  if (!ordem.length) return limparCombate();
+  let turno = ordem.findIndex(c => c.id === idAtual);
+  if (turno < 0) turno = Math.min(combate.turno, ordem.length - 1);
+  salvarCombate({ ativo: true, round: combate.round, turno: turno, ordem: ordem });
+}
+
+function proximoTurno() {
+  if (!combate.ordem.length) return;
+  let turno = combate.turno + 1, round = combate.round;
+  if (turno >= combate.ordem.length) { turno = 0; round++; }
+  salvarCombate({ ativo: true, round: round, turno: turno, ordem: combate.ordem });
+}
+
+function limparCombate() {
+  if (!confirm('Encerrar o combate?')) return;
+  salvarCombate(combatePadrao());
 }
 
 async function pv(id, delta) {

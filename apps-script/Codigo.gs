@@ -51,6 +51,7 @@ function doPost(e) {
       case 'ajustarPV': return resposta_(ajustarPV(body.id, Number(body.delta)));
       case 'excluirPersonagem': return resposta_(excluirPersonagem(body.id));
       case 'registrarRolagem': return resposta_(registrarRolagem(body.dados));
+      case 'salvarCombate': return resposta_(salvarCombate(body.dados));
       default: return resposta_({ erro: 'ação desconhecida: ' + body.acao });
     }
   } catch (err) {
@@ -115,7 +116,7 @@ function getPersonagens() {
 }
 
 function getEstado() {
-  return { personagens: getPersonagens(), rolagens: getRolagens(), servidor: Date.now() };
+  return { personagens: getPersonagens(), rolagens: getRolagens(), combate: getCombate(), servidor: Date.now() };
 }
 
 /** Cria/atualiza um personagem (upsert por id). Preserva a ficha existente se não vier nova. */
@@ -197,6 +198,50 @@ function registrarRolagem(r) {
     const total = aba.getLastRow() - 1;
     if (total > MAX_ROLAGENS) aba.deleteRows(2, total - MAX_ROLAGENS);
     return getRolagens();
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/* ------------------------- COMBATE / INICIATIVA ------------------------- */
+const ABA_ESTADO = 'Estado'; // chave/valor para estados pequenos (ex.: combate atual)
+
+function combatePadrao_() { return { ativo: false, round: 0, turno: 0, ordem: [] }; }
+
+function abaEstado_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let aba = ss.getSheetByName(ABA_ESTADO);
+  if (!aba) {
+    aba = ss.insertSheet(ABA_ESTADO);
+    aba.getRange(1, 1, 1, 2).setValues([['chave', 'valor']]).setFontWeight('bold');
+  }
+  return aba;
+}
+
+/** Estado do combate atual: { ativo, round, turno, ordem:[{id,nome,valor,refId}] }. */
+function getCombate() {
+  const aba = abaEstado_();
+  const dados = aba.getDataRange().getValues();
+  for (let i = 1; i < dados.length; i++) {
+    if (dados[i][0] === 'combate') {
+      try { return JSON.parse(dados[i][1] || '{}'); } catch (e) { return combatePadrao_(); }
+    }
+  }
+  return combatePadrao_();
+}
+
+function salvarCombate(obj) {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const aba = abaEstado_();
+    const dados = aba.getDataRange().getValues();
+    const valor = JSON.stringify(obj || combatePadrao_());
+    for (let i = 1; i < dados.length; i++) {
+      if (dados[i][0] === 'combate') { aba.getRange(i + 1, 2).setValue(valor); return getCombate(); }
+    }
+    aba.appendRow(['combate', valor]);
+    return getCombate();
   } finally {
     lock.releaseLock();
   }

@@ -128,3 +128,18 @@ input, select { background: #0a1622; border: 1px solid var(--line); color: var(-
 .id-extra { margin-top: 6px; }
 .card.meu { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
 .badge.voce { background: rgba(95,167,119,.18); color: var(--green); border-color: rgba(95,167,119,.5); margin-left: 6px; }
+
+/* Iniciativa / combate */
+#iniciativa { padding: 10px 12px; }
+.comb-vazio { color: var(--muted); font-size: 13px; padding: 4px 0; }
+.comb-cab { color: var(--gold); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 6px; }
+.comb-item { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 8px; border: 1px solid transparent; }
+.comb-item + .comb-item { margin-top: 2px; }
+.comb-item.atual { background: rgba(201,164,74,.12); border-color: var(--gold); }
+.comb-ini { min-width: 30px; text-align: center; font-weight: 800; color: var(--gold); font-size: 16px; }
+.comb-nome { flex: 1; font-size: 14px; }
+.comb-item.atual .comb-nome { font-weight: 700; }
+.comb-pv { color: var(--muted); font-size: 11px; }
+.comb-x { background: transparent; border: none; color: var(--muted); cursor: pointer; font-size: 13px; padding: 2px 4px; }
+.comb-acoes { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.comb-acoes .btn-id { flex: 1; min-width: 110px; }

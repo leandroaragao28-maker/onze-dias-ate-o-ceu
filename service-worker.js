@@ -3,7 +3,7 @@
  * Trocar o VERSION muda este arquivo → o navegador detecta a nova versão
  * e o js/pwa.js mostra o banner "Nova versão disponível".
  */
-const VERSION = 'v3';
+const VERSION = 'v4';
 const CACHE = 'onze-dias-' + VERSION;
 
 // Caminhos relativos ao escopo (/onze-dias-ate-o-ceu/).
