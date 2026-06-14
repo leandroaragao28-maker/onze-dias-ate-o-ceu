@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Onze Dias Até o Céu — Painel da Tripulação</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>⚓ Onze Dias Até o Céu</h1>
+    <div class="sub">Painel da Tripulação — D&D 5e</div>
+    <div class="status-bar"><span class="dot" id="dot"></span><span id="status">conectando…</span></div>
+  </header>
+
+  <div id="aviso-config"></div>
+
+  <div class="secao-titulo">Rolar Dados</div>
+  <div class="card">
+    <div class="rolador-topo">
+      <input id="r_autor" placeholder="Quem rola? (seu nome)">
+      <div class="vd">
+        <button class="vd-btn ativo" data-vd="0" onclick="setVD(this)">Normal</button>
+        <button class="vd-btn" data-vd="1" onclick="setVD(this)">Vantagem</button>
+        <button class="vd-btn" data-vd="-1" onclick="setVD(this)">Desvant.</button>
+      </div>
+    </div>
+    <div id="resultado" class="resultado">—</div>
+    <div id="resultado-det" class="resultado-det"></div>
+    <div class="dados">
+      <button class="dado" onclick="rolarDado(20)">d20</button>
+      <button class="dado" onclick="rolarDado(12)">d12</button>
+      <button class="dado" onclick="rolarDado(10)">d10</button>
+      <button class="dado" onclick="rolarDado(8)">d8</button>
+      <button class="dado" onclick="rolarDado(6)">d6</button>
+      <button class="dado" onclick="rolarDado(4)">d4</button>
+      <button class="dado" onclick="rolarDado(100)">d%</button>
+    </div>
+    <div class="mod-linha">
+      <span>Modificador (aplicado aos botões)</span>
+      <button class="btn-pv" onclick="ajMod(-1)">−</button>
+      <input id="r_mod" type="number" value="0">
+      <button class="btn-pv" onclick="ajMod(1)">+</button>
+    </div>
+    <div class="formula-linha">
+      <input id="r_formula" placeholder="Fórmula livre: 2d6+3" onkeydown="if(event.key==='Enter')rolarFormula()">
+      <button class="btn btn-salvar" onclick="rolarFormula()">Rolar</button>
+    </div>
+  </div>
+
+  <div class="secao-titulo">Rolagens Recentes</div>
+  <div id="feed-rolagens"><div class="carregando">—</div></div>
+
+  <div class="secao-titulo">Resumo da Tripulação</div>
+  <div id="lista"><div class="carregando">Carregando…</div></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
