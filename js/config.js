@@ -5,5 +5,6 @@
 window.CONFIG = {
   API_URL: 'https://script.google.com/macros/s/AKfycbz6PNyLyoUUqv6lq2P36WdguXBFSO4yiTMMznU2QAIJCyI5puzGuA1fGij3Y7LGUTGK_Q/exec',
   TOKEN: 'onze-dias',
+  MESTRE_KEY: 'mestre-onze', // chave que o mestre digita para liberar a edição de todas as fichas
   INTERVALO_POLL: 5000 // ms entre atualizações automáticas
 };

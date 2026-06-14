@@ -4,19 +4,34 @@ const ATRIBS = [
   ['inteligencia', 'Intel.'], ['sabedoria', 'Sab.'], ['carisma', 'Carisma']
 ];
 
-(async function () {
+let alvoEl, atual = null;
+carregarFicha();
+
+async function carregarFicha() {
+  alvoEl = document.getElementById('ficha');
   const id = new URLSearchParams(location.search).get('id');
-  const alvo = document.getElementById('ficha');
-  if (!API.configurado()) { alvo.innerHTML = '<div class="aviso">Configure <code>js/config.js</code> com a URL do Apps Script.</div>'; return; }
+  if (!API.configurado()) { alvoEl.innerHTML = '<div class="aviso">Configure <code>js/config.js</code> com a URL do Apps Script.</div>'; return; }
   try {
     const lista = await API.personagens();
-    const p = (lista || []).find(x => x.id === id);
-    if (!p) { alvo.innerHTML = '<div class="aviso">Personagem não encontrado.</div>'; return; }
-    alvo.innerHTML = render(p);
+    atual = (lista || []).find(x => x.id === id);
+    if (!atual) { alvoEl.innerHTML = '<div class="aviso">Personagem não encontrado.</div>'; return; }
+    alvoEl.innerHTML = render(atual);
   } catch (e) {
-    alvo.innerHTML = '<div class="aviso">Erro ao carregar: ' + esc(String(e)) + '</div>';
+    alvoEl.innerHTML = '<div class="aviso">Erro ao carregar: ' + esc(String(e)) + '</div>';
   }
-})();
+}
+
+// Ajuste de PV na ficha (só aparece para quem pode editar este personagem).
+window.ajPV = async function (delta) {
+  if (!atual) return;
+  atual.pv_atual = Math.max(0, Math.min(atual.pv_atual + delta, atual.pv_max));
+  alvoEl.innerHTML = render(atual); // otimista
+  try {
+    const lista = await API.ajustarPV(atual.id, delta);
+    const novo = (lista || []).find(x => x.id === atual.id);
+    if (novo) { atual = novo; alvoEl.innerHTML = render(atual); }
+  } catch (e) {}
+};
 
 function mod(v) { const m = Math.floor((v - 10) / 2); return (m >= 0 ? '+' : '') + m; }
 function sec(titulo, conteudo) { return '<div class="secao-titulo">' + titulo + '</div><div class="card">' + conteudo + '</div>'; }
@@ -34,9 +49,14 @@ function render(p) {
   // Combate
   const pct = p.pv_max > 0 ? Math.round(p.pv_atual / p.pv_max * 100) : 0;
   const cor = pct <= 25 ? 'var(--red)' : (pct <= 50 ? 'var(--amber)' : 'var(--green)');
+  const pvBtns = Identidade.podeEditar(p.id) ? '<div class="btns">' +
+    '<button class="btn-pv menos" onclick="ajPV(-5)">−5</button>' +
+    '<button class="btn-pv menos" onclick="ajPV(-1)">−1</button>' +
+    '<button class="btn-pv mais" onclick="ajPV(1)">+1</button>' +
+    '<button class="btn-pv mais" onclick="ajPV(5)">+5</button></div>' : '';
   h += sec('Combate',
     '<div class="pv-linha"><div class="pv-barra"><div class="pv-fill" style="width:' + pct + '%;background:' + cor + '"></div></div>' +
-    '<div class="pv-txt">' + p.pv_atual + ' / ' + p.pv_max + ' PV</div></div>' +
+    '<div class="pv-txt">' + p.pv_atual + ' / ' + p.pv_max + ' PV</div></div>' + pvBtns +
     '<div class="linha-comb">' +
     mini('CA', p.ca) + mini('Inic.', (p.iniciativa >= 0 ? '+' : '') + p.iniciativa) + mini('Desl.', p.deslocamento) +
     mini('Dados Vida', p.dados_vida) + mini('Perc. Pass.', p.perc_passiva) + mini('Prof.', '+' + p.prof_bonus) +

@@ -46,6 +46,7 @@ function render(lista) {
   const el = document.getElementById('lista');
   el.innerHTML = lista.length ? lista.map(card).join('') :
     '<div class="carregando">Nenhum personagem. Rode popularBaseDeDados() no Apps Script.</div>';
+  renderIdentidade();
 }
 
 function card(p) {
@@ -53,11 +54,21 @@ function card(p) {
   const cor = pct <= 25 ? 'var(--red)' : (pct <= 50 ? 'var(--amber)' : 'var(--green)');
   const badge = p.status ? '<span class="badge">' + esc(p.status) + '</span>' : '';
   const ini = (p.iniciativa >= 0 ? '+' : '') + p.iniciativa;
+  const ehVoce = Identidade.meuId() === p.id;
+  const editavel = Identidade.podeEditar(p.id);
+  const voce = ehVoce ? ' <span class="badge voce">VOCÊ</span>' : '';
+  const botoes = editavel ? `
+      <div class="btns">
+        <button class="btn-pv menos" onclick="pv('${p.id}',-5)">−5</button>
+        <button class="btn-pv menos" onclick="pv('${p.id}',-1)">−1</button>
+        <button class="btn-pv mais" onclick="pv('${p.id}',1)">+1</button>
+        <button class="btn-pv mais" onclick="pv('${p.id}',5)">+5</button>
+      </div>` : '';
   return `
-    <div class="card">
+    <div class="card${ehVoce ? ' meu' : ''}">
       <div class="card-top">
         <div>
-          <div class="nome"><a href="ficha.html?id=${encodeURIComponent(p.id)}">${esc(p.nome)}</a></div>
+          <div class="nome"><a href="ficha.html?id=${encodeURIComponent(p.id)}">${esc(p.nome)}</a>${voce}</div>
           <div class="classe">${esc(p.classe_nivel)} • ${esc(p.raca)}${p.jogador && p.jogador !== '—' ? ' • ' + esc(p.jogador) : ''}</div>
         </div>
         ${badge}
@@ -66,12 +77,7 @@ function card(p) {
         <div class="pv-barra"><div class="pv-fill" style="width:${pct}%;background:${cor}"></div></div>
         <div class="pv-txt">${p.pv_atual} / ${p.pv_max} PV</div>
       </div>
-      <div class="btns">
-        <button class="btn-pv menos" onclick="pv('${p.id}',-5)">−5</button>
-        <button class="btn-pv menos" onclick="pv('${p.id}',-1)">−1</button>
-        <button class="btn-pv mais" onclick="pv('${p.id}',1)">+1</button>
-        <button class="btn-pv mais" onclick="pv('${p.id}',5)">+5</button>
-      </div>
+      ${botoes}
       <div class="stats">
         <div>CA<b>${p.ca}</b></div>
         <div>Inic.<b>${ini}</b></div>
@@ -79,6 +85,60 @@ function card(p) {
         <div>Perc.<b>${p.perc_passiva}</b></div>
       </div>
     </div>`;
+}
+
+/* --------------------------- identidade (quem é você) --------------------------- */
+function renderIdentidade() {
+  const el = document.getElementById('identidade');
+  if (!el) return;
+  const meu = Identidade.meuId();
+  const mestre = Identidade.ehMestre();
+  const estado = (mestre ? 'M:' : '') + (meu || 'novo') + ':' + personagens.length;
+  if (el.dataset.estado === estado) return; // evita reconstruir a cada poll
+  el.dataset.estado = estado;
+
+  if (!meu && !mestre) {
+    const opts = personagens.map(p => `<option value="${p.id}">${esc(p.nome)}</option>`).join('');
+    el.innerHTML =
+      '<div class="id-linha"><span class="id-q">Quem é você?</span>' +
+      '<select id="id-sel">' + opts + '</select>' +
+      '<button class="btn-id" onclick="confirmarEu()">Sou eu</button></div>' +
+      '<div class="id-extra"><a href="javascript:void(0)" onclick="entrarMestre()">Sou o mestre</a></div>';
+  } else {
+    const p = personagens.find(x => x.id === meu);
+    const quem = mestre ? '⚔ <b>Mestre</b> — você edita todas as fichas'
+                        : ('Você é <b>' + esc(p ? p.nome : '—') + '</b>');
+    el.innerHTML =
+      '<div class="id-linha"><span class="id-q">' + quem + '</span>' +
+      '<button class="btn-id sec" onclick="trocarEu()">Trocar</button>' +
+      (mestre ? '<button class="btn-id sec" onclick="sairMestre()">Sair</button>'
+              : '<a class="id-link" href="javascript:void(0)" onclick="entrarMestre()">Sou o mestre</a>') +
+      '</div>';
+  }
+}
+
+function confirmarEu() {
+  const sel = document.getElementById('id-sel');
+  if (!sel) return;
+  const p = personagens.find(x => x.id === sel.value);
+  Identidade.setMeu(sel.value, p ? (p.jogador && p.jogador !== '—' ? p.jogador : p.nome) : '');
+  const a = document.getElementById('r_autor');
+  if (a && !a.value) a.value = Identidade.nome();
+  recriarIdentidade();
+}
+function trocarEu() { Identidade.limpar(); recriarIdentidade(); }
+function entrarMestre() {
+  const c = prompt('Chave do mestre:');
+  if (c == null) return;
+  if (Identidade.entrarMestre(c.trim())) recriarIdentidade();
+  else alert('Chave incorreta.');
+}
+function sairMestre() { Identidade.sairMestre(); recriarIdentidade(); }
+function recriarIdentidade() {
+  const el = document.getElementById('identidade');
+  if (el) el.dataset.estado = '';
+  renderIdentidade();
+  render(personagens);
 }
 
 async function pv(id, delta) {

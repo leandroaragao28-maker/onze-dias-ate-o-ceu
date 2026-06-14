@@ -115,3 +115,16 @@ input, select { background: #0a1622; border: 1px solid var(--line); color: var(-
 .banner-x { background: transparent; border: none; color: var(--muted); font-size: 16px; cursor: pointer; padding: 4px 6px; }
 .banner-update { border-color: var(--green); }
 .banner-update .banner-btn { background: var(--green); color: #07210f; }
+
+/* Identidade (reivindicar personagem) */
+#identidade:empty { display: none; }
+#identidade { padding: 10px 12px; }
+.id-linha { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.id-q { flex: 1; font-size: 13px; color: var(--ink); min-width: 120px; }
+#id-sel { flex: 1; min-width: 120px; }
+.btn-id { background: var(--gold); color: #1a1304; border: none; border-radius: 8px; padding: 8px 12px; font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap; }
+.btn-id.sec { background: var(--card2); color: var(--ink); border: 1px solid var(--line); }
+.id-link, .id-extra a { color: var(--muted); font-size: 12px; text-decoration: underline; cursor: pointer; }
+.id-extra { margin-top: 6px; }
+.card.meu { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+.badge.voce { background: rgba(95,167,119,.18); color: var(--green); border-color: rgba(95,167,119,.5); margin-left: 6px; }

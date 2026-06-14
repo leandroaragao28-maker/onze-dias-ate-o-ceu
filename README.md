@@ -83,9 +83,17 @@ continuar servindo os arquivos do cache antigo.
 
 O `TOKEN` em `js/config.js` é **público** (repositório aberto), então serve apenas para evitar acesso casual/bots à API — não é segurança real. Para controle por jogador (cada um edita só a própria ficha), o próximo passo é login por conta Google no Apps Script.
 
+## Identidade — quem edita cada ficha
+
+Modelo **"reivindicar personagem"** (sem login, segurança social entre amigos):
+
+- Cada jogador escolhe seu personagem 1x na barra do topo — fica salvo **só no aparelho** (localStorage).
+- Os botões de PV (no painel e na ficha) só aparecem para o **dono** do personagem.
+- O **mestre** digita a chave (`MESTRE_KEY` em `js/config.js`, padrão `mestre-onze`) e passa a editar **todos**.
+- A API continua aberta; o controle é na interface. Para travar de verdade no servidor seria preciso PIN por ficha ou login Google (GIS) — fica como evolução futura.
+
 ## Próximos passos
 
-- Login por e-mail Google (permissão por jogador).
 - Ordem de iniciativa e turno atual.
 - Webhook do Discord (dano, level up, críticos).
-- Edição da ficha completa pelo app (hoje a ficha é só-leitura; PV é editável).
+- Edição dos demais campos da ficha pelo app (hoje o dono edita PV; resto é só-leitura).
