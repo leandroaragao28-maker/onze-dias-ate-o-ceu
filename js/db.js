@@ -69,7 +69,9 @@ window.DB = (function () {
   function usuario() { return auth ? auth.currentUser : null; }
   function entrar() {
     const prov = new firebase.auth.GoogleAuthProvider();
-    return auth.signInWithRedirect(prov); // redirect = mais confiável no celular
+    prov.setCustomParameters({ prompt: 'select_account' });
+    // popup evita o problema de armazenamento entre domínios (web.app x firebaseapp.com)
+    return auth.signInWithPopup(prov);
   }
   function sair() { return auth.signOut(); }
   // Amarra a ficha à conta logada (só funciona se a ficha estiver sem dono, pelas regras).
