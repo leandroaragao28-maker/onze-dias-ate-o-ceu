@@ -443,9 +443,9 @@ function montarOpcoesFicha(p) {
   h += '<option value="init:">Iniciativa (' + sinal(p.iniciativa || 0) + ')</option>';
   (f.ataques || []).forEach((a, i) => { if (a.bonus != null) h += '<option value="atk:' + i + '">Ataque · ' + esc(a.nome) + ' (' + sinal(a.bonus) + ')</option>'; });
   (f.ataques || []).forEach((a, i) => { if (a.dano) h += '<option value="dano:' + i + '">Dano · ' + esc(a.nome) + ' (' + esc(a.dano) + ')</option>'; });
-  h += '</optgroup><optgroup label="Salvaguardas">';
+  h += '</optgroup><optgroup label="Testes de Resistência">';
   const sv = (f.salvaguardas && f.salvaguardas.bonus) || {};
-  ATRIBOS.forEach(a => h += '<option value="salv:' + a[0] + '">Salv. ' + a[1] + ' (' + sinal(sv[a[0]] || 0) + ')</option>');
+  ATRIBOS.forEach(a => h += '<option value="salv:' + a[0] + '">Resist. ' + a[1] + ' (' + sinal(sv[a[0]] || 0) + ')</option>');
   h += '</optgroup><optgroup label="Testes de Atributo">';
   ATRIBOS.forEach(a => h += '<option value="atrib:' + a[0] + '">' + a[1] + ' (' + sinal(modAtrib(p[a[0]])) + ')</option>');
   h += '</optgroup><optgroup label="Perícias">';
@@ -467,7 +467,7 @@ function rolarFicha() {
   const f = p.ficha || {};
   let bonus = 0, rotulo = '', dano = null;
   if (tipo === 'init') { bonus = p.iniciativa || 0; rotulo = 'Iniciativa'; }
-  else if (tipo === 'salv') { bonus = ((f.salvaguardas && f.salvaguardas.bonus) || {})[chave] || 0; rotulo = 'Salvaguarda · ' + nomeAtrib(chave); }
+  else if (tipo === 'salv') { bonus = ((f.salvaguardas && f.salvaguardas.bonus) || {})[chave] || 0; rotulo = 'Resist. · ' + nomeAtrib(chave); }
   else if (tipo === 'atrib') { bonus = modAtrib(p[chave]); rotulo = 'Teste · ' + nomeAtrib(chave); }
   else if (tipo === 'per') { const pe = (f.pericias || []).find(x => x.nome === chave); bonus = pe ? pe.bonus : 0; rotulo = 'Perícia · ' + chave; }
   else if (tipo === 'atk') { const a = (f.ataques || [])[parseInt(chave, 10)]; bonus = a ? a.bonus : 0; rotulo = 'Ataque · ' + (a ? a.nome : ''); }
