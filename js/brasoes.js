@@ -6,6 +6,7 @@ window.Brasoes = (function () {
     if (s.indexOf('bárbaro') >= 0 || s.indexOf('barbaro') >= 0) return 'barbaro';
     if (s.indexOf('paladino') >= 0) return 'paladino';
     if (s.indexOf('clérigo') >= 0 || s.indexOf('clerigo') >= 0) return 'clerigo';
+    if (s.indexOf('mago') >= 0 || s.indexOf('maga') >= 0 || s.indexOf('feiticeir') >= 0 || s.indexOf('bruxo') >= 0) return 'mago';
     if (s.indexOf('bardo') >= 0) return 'bardo';
     return 'generico';
   }
@@ -21,6 +22,8 @@ window.Brasoes = (function () {
     clerigo: '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="4" width="10" height="4.4" rx="1.1"/><path d="M11.2 8 H12.8 V21 H11.2 Z"/></svg>',
     // Alaúde (Bardo)
     bardo: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9.5" cy="15" r="5.2"/><path d="M13 12 L18 4 H19.6 V5.6 L12 11 Z"/></svg>',
+    // Cajado com orbe (Mago/Maga)
+    mago: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="16.5" cy="5.6" r="2.9"/><path d="M15 7.2 L6.4 20.6 H8.6 L16.3 8.3 Z"/></svg>',
     // d20 (genérico)
     generico: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M12 2.5 L20 7 V17 L12 21.5 L4 17 V7 Z"/><path d="M12 2.5 L20 7 L12 12 L4 7 Z"/><path d="M4 17 L12 12 L20 17"/><path d="M12 12 V21.5"/></svg>'
   };

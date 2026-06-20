@@ -8,25 +8,24 @@
     "raca": "Humano",
     "tendencia": "Leal e Bom",
     "antecedente": "Soldado",
-    "xp_atual": 875,
+    "xp_atual": 300,
     "xp_prox": 900,
     "prof_bonus": 2,
     "ca": 17,
     "iniciativa": 2,
     "deslocamento": "9 m",
-    "pv_max": 20,
-    "pv_atual": 20,
+    "pv_max": 22,
+    "pv_atual": 22,
     "pv_temp": 0,
     "dados_vida": "2d10",
-    "perc_passiva": 12,
-    "forca": 17,
+    "perc_passiva": 11,
+    "forca": 16,
     "destreza": 14,
-    "constituicao": 14,
-    "inteligencia": 8,
-    "sabedoria": 10,
-    "carisma": 12,
+    "constituicao": 16,
+    "inteligencia": 9,
+    "sabedoria": 12,
+    "carisma": 10,
     "status": "Surto de Ação",
-    "avatar_url": "",
     "ficha": {
       "subtitulo": "Veterano das legiões",
       "salvaguardas": {
@@ -37,23 +36,23 @@
         "bonus": {
           "forca": 5,
           "destreza": 2,
-          "constituicao": 4,
+          "constituicao": 5,
           "inteligencia": -1,
-          "sabedoria": 0,
-          "carisma": 1
+          "sabedoria": 1,
+          "carisma": 0
         }
       },
       "pericias": [
         {
           "nome": "Acrobacia",
           "atrib": "Des",
-          "bonus": 2,
-          "prof": false
+          "bonus": 4,
+          "prof": true
         },
         {
           "nome": "Adestrar Animais",
           "atrib": "Sab",
-          "bonus": 2,
+          "bonus": 3,
           "prof": true
         },
         {
@@ -71,13 +70,13 @@
         {
           "nome": "Atuação",
           "atrib": "Car",
-          "bonus": 1,
+          "bonus": 0,
           "prof": false
         },
         {
           "nome": "Enganação",
           "atrib": "Car",
-          "bonus": 1,
+          "bonus": 0,
           "prof": false
         },
         {
@@ -89,20 +88,20 @@
         {
           "nome": "História",
           "atrib": "Int",
-          "bonus": 1,
-          "prof": true
+          "bonus": -1,
+          "prof": false
         },
         {
           "nome": "Intimidação",
           "atrib": "Car",
-          "bonus": 3,
+          "bonus": 2,
           "prof": true
         },
         {
           "nome": "Intuição",
           "atrib": "Sab",
-          "bonus": 2,
-          "prof": true
+          "bonus": 1,
+          "prof": false
         },
         {
           "nome": "Investigação",
@@ -113,7 +112,7 @@
         {
           "nome": "Medicina",
           "atrib": "Sab",
-          "bonus": 0,
+          "bonus": 1,
           "prof": false
         },
         {
@@ -125,14 +124,14 @@
         {
           "nome": "Percepção",
           "atrib": "Sab",
-          "bonus": 2,
-          "prof": true
+          "bonus": 1,
+          "prof": false
         },
         {
           "nome": "Persuasão",
           "atrib": "Car",
-          "bonus": 3,
-          "prof": true
+          "bonus": 0,
+          "prof": false
         },
         {
           "nome": "Prestidigitação",
@@ -149,7 +148,7 @@
         {
           "nome": "Sobrevivência",
           "atrib": "Sab",
-          "bonus": 0,
+          "bonus": 1,
           "prof": false
         }
       ],
@@ -158,22 +157,21 @@
           "nome": "Espada Grande",
           "bonus": 5,
           "dano": "2d6+3",
-          "tipo": "cortante · Pesada/Duas Mãos · Maestria: Graze"
+          "tipo": "cortante · Pesada/Duas Mãos"
         },
         {
           "nome": "Mangual",
           "bonus": 5,
           "dano": "1d8+3",
-          "tipo": "contundente · 1,5m · Maestria: Sap"
+          "tipo": "contundente · 1,5m"
         },
         {
           "nome": "Azagaia ×8",
           "bonus": 5,
           "dano": "1d6+3",
-          "tipo": "perfurante · arr. 9/36m · Maestria: Slow"
+          "tipo": "perfurante · arr. 9/36m"
         }
       ],
-      "ataques_nota": "Ataques c. a c. e azagaia arremessada usam Força. Atacante Selvagem: 1×/turno, role o dano 2× e use o maior.",
       "magias": null,
       "tracos": [
         {
@@ -190,15 +188,7 @@
         },
         {
           "nome": "⚔ Maestria em Armas",
-          "desc": "Espada Grande (Graze), Mangual (Sap), Azagaia (Slow)."
-        },
-        {
-          "nome": "💥 Atacante Selvagem (Talento)",
-          "desc": "1×/turno, ao acertar com arma, role o dano 2× e use o maior."
-        },
-        {
-          "nome": "📚 Versátil (Talento Humano)",
-          "desc": "Proficiências extras: Persuasão, História, Adestrar Animais; perícia extra (Intuição)."
+          "desc": "Armas escolhidas: Espada Grande (Graze), Mangual (Sap), Azagaia (Slow)."
         }
       ],
       "equipamento": [
@@ -226,6 +216,7 @@
       "historia": [],
       "anotacoes": "Cota de Malha exige Força 13 (você atende). Impõe desvantagem em Furtividade.\nNo turno: Mover → Agir → Ação Bônus → Reação."
     },
+    "avatar_url": "",
     "owner_email": "leandroaragao28@gmail.com"
   },
   {
@@ -253,9 +244,8 @@
     "constituicao": 15,
     "inteligencia": 11,
     "sabedoria": 13,
-    "carisma": 9,
+    "carisma": 8,
     "status": "Fúria 2/2",
-    "avatar_url": "",
     "ficha": {
       "subtitulo": "O Punho que não recua",
       "salvaguardas": {
@@ -463,13 +453,14 @@
       "historia": [],
       "anotacoes": "Frases: \"Começa.\" · \"Eu aviso uma vez.\" · \"Deixa o machado resolver.\"\nSem armadura — checar CA se equipar escudo (+2)."
     },
+    "avatar_url": "",
     "owner_email": ""
   },
   {
     "id": "raelag",
     "ordem": 3,
     "nome": "Raelag Rola",
-    "jogador": "—",
+    "jogador": "Elmo Rola",
     "classe_nivel": "Paladino 2",
     "raca": "Humano",
     "tendencia": "Leal e Neutro",
@@ -488,11 +479,10 @@
     "forca": 16,
     "destreza": 14,
     "constituicao": 14,
-    "inteligencia": 8,
+    "inteligencia": 9,
     "sabedoria": 12,
     "carisma": 14,
     "status": "Imposição 10/10",
-    "avatar_url": "",
     "ficha": {
       "subtitulo": "Debitum Abyssi — A Dívida do Abismo",
       "perfil": {
@@ -727,13 +717,14 @@
       ],
       "anotacoes": "Cota de Malha impõe desvantagem em Furtividade. CA 19 = 16 + escudo (+2) + Defesa (+1). Sabedoria Passiva (Percepção) 13."
     },
+    "avatar_url": "",
     "owner_email": ""
   },
   {
     "id": "dorin",
     "ordem": 4,
     "nome": "Dorin Forjafogo",
-    "jogador": "—",
+    "jogador": "Eduardo Dória",
     "classe_nivel": "Clérigo 2 (Forja)",
     "raca": "Anão da Colina",
     "tendencia": "Leal e Neutro",
@@ -749,14 +740,13 @@
     "pv_temp": 0,
     "dados_vida": "2d8",
     "perc_passiva": 13,
-    "forca": 14,
+    "forca": 12,
     "destreza": 10,
     "constituicao": 17,
-    "inteligencia": 8,
+    "inteligencia": 9,
     "sabedoria": 16,
-    "carisma": 12,
+    "carisma": 10,
     "status": "Bênção da Forja",
-    "avatar_url": "",
     "ficha": {
       "subtitulo": "Clérigo da Forja · Devoto de Moradin",
       "perfil": {
@@ -769,12 +759,12 @@
           "carisma"
         ],
         "bonus": {
-          "forca": 2,
+          "forca": 1,
           "destreza": 0,
           "constituicao": 3,
           "inteligencia": -1,
           "sabedoria": 5,
-          "carisma": 3
+          "carisma": 2
         }
       },
       "pericias": [
@@ -799,19 +789,19 @@
         {
           "nome": "Atletismo",
           "atrib": "For",
-          "bonus": 2,
+          "bonus": 1,
           "prof": false
         },
         {
           "nome": "Atuação",
           "atrib": "Car",
-          "bonus": 1,
+          "bonus": 0,
           "prof": false
         },
         {
           "nome": "Enganação",
           "atrib": "Car",
-          "bonus": 1,
+          "bonus": 0,
           "prof": false
         },
         {
@@ -829,7 +819,7 @@
         {
           "nome": "Intimidação",
           "atrib": "Car",
-          "bonus": 1,
+          "bonus": 0,
           "prof": false
         },
         {
@@ -865,7 +855,7 @@
         {
           "nome": "Persuasão",
           "atrib": "Car",
-          "bonus": 3,
+          "bonus": 2,
           "prof": true
         },
         {
@@ -890,7 +880,7 @@
       "ataques": [
         {
           "nome": "Martelo de Guerra",
-          "bonus": 4,
+          "bonus": 3,
           "dano": "1d8+2 (1m) / 1d10+2 (2m)",
           "tipo": "contundente · 1,5m"
         },
@@ -916,7 +906,7 @@
               },
               {
                 "nome": "Chama Sagrada",
-                "desc": "1 ação · 18 m · salv. Destreza CD 13; falha: 1d8 radiante."
+                "desc": "1 ação · 18 m · Salv. Destreza; falha: 1d8 radiante."
               },
               {
                 "nome": "Consertar",
@@ -938,7 +928,7 @@
             ]
           },
           {
-            "titulo": "Magias Preparadas (1º Círculo)",
+            "titulo": "Magias Preparadas (1º Círculo) — 3 Espaços",
             "itens": [
               {
                 "nome": "Bênção",
@@ -958,7 +948,7 @@
               },
               {
                 "nome": "Comando",
-                "desc": "1 ação · 18 m · salv. Sabedoria CD 13; falha: obedece uma ordem simples por 1 turno."
+                "desc": "1 ação · 18 m · Salv. Sabedoria; falha: obedece uma ordem simples por 1 turno."
               }
             ]
           }
@@ -972,6 +962,10 @@
         {
           "nome": "✨ Canalizar Divindade: Bênção do Artesão (1×/desc.)",
           "desc": "Cria um objeto metálico não mágico de até 100 PO usando metal equivalente."
+        },
+        {
+          "nome": "✨ Expulsar Mortos-Vivos (1×/desc.)",
+          "desc": "Mortos-vivos que falharem em resistência de Sabedoria fogem por 1 minuto."
         },
         {
           "nome": "🛡 Armadura Pesada (Domínio da Forja)",
@@ -994,6 +988,10 @@
           "desc": "Lança magia divina usando Sabedoria. Prepara magias após descanso longo."
         },
         {
+          "nome": "☀ Astúcia em Pedras",
+          "desc": "Em testes de História sobre trabalhos em pedra: é considerado proficiente; dobra o bônus de proficiência se já possuir proficiência."
+        },
+        {
           "nome": "⛪ Abrigo dos Fiéis (Acólito)",
           "desc": "Recebe abrigo, alimentação simples e auxílio básico em templos e comunidades religiosas ligadas a Moradin."
         }
@@ -1007,7 +1005,7 @@
       ],
       "proficiencias": [
         "Armaduras: leves, médias, pesadas + escudos",
-        "Armas: simples",
+        "Armas: simples, Machado de Batalha, Machadinha, Martelo Leve e Martelo de Guerra",
         "Salvaguardas: Sabedoria, Carisma",
         "Ferramentas: de Ferreiro (forjar/reparar/avaliar metais); de Pedreiro (falhas estruturais, passagens ocultas)",
         "Idiomas: Comum, Anão, Celestial, Gigante"
@@ -1025,6 +1023,293 @@
       "historia": [],
       "anotacoes": "CA 18 = Cota de Malha (16) + Escudo (+2). Robustez Anã: +1 PV/nível (incluído). Resiliência Anã: vantagem vs veneno."
     },
+    "avatar_url": "",
+    "owner_email": ""
+  },
+  {
+    "id": "liseon",
+    "ordem": 5,
+    "nome": "Liseon",
+    "jogador": "Anelise Rola",
+    "classe_nivel": "Maga 2 (Necromancia)",
+    "raca": "Humano (Variante)",
+    "tendencia": "Caótica Boa",
+    "antecedente": "Charlatã",
+    "xp_atual": 300,
+    "xp_prox": 900,
+    "prof_bonus": 2,
+    "ca": 12,
+    "iniciativa": 2,
+    "deslocamento": "9 m",
+    "pv_max": 14,
+    "pv_atual": 14,
+    "pv_temp": 0,
+    "dados_vida": "2d6",
+    "perc_passiva": 18,
+    "forca": 8,
+    "destreza": 14,
+    "constituicao": 14,
+    "inteligencia": 16,
+    "sabedoria": 12,
+    "carisma": 12,
+    "status": "Colheita Sinistra",
+    "ficha": {
+      "subtitulo": "Maga da Necromancia",
+      "salvaguardas": {
+        "proficientes": [
+          "inteligencia",
+          "sabedoria"
+        ],
+        "bonus": {
+          "forca": -1,
+          "destreza": 2,
+          "constituicao": 2,
+          "inteligencia": 5,
+          "sabedoria": 3,
+          "carisma": 1
+        }
+      },
+      "pericias": [
+        {
+          "nome": "Acrobacia",
+          "atrib": "Des",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "Adestrar Animais",
+          "atrib": "Sab",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Arcanismo",
+          "atrib": "Int",
+          "bonus": 5,
+          "prof": true
+        },
+        {
+          "nome": "Atletismo",
+          "atrib": "For",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Atuação",
+          "atrib": "Car",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Enganação",
+          "atrib": "Car",
+          "bonus": 3,
+          "prof": true
+        },
+        {
+          "nome": "Furtividade",
+          "atrib": "Des",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "História",
+          "atrib": "Int",
+          "bonus": 3,
+          "prof": false
+        },
+        {
+          "nome": "Intimidação",
+          "atrib": "Car",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Intuição",
+          "atrib": "Sab",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Investigação",
+          "atrib": "Int",
+          "bonus": 10,
+          "prof": true
+        },
+        {
+          "nome": "Medicina",
+          "atrib": "Sab",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Natureza",
+          "atrib": "Int",
+          "bonus": 3,
+          "prof": false
+        },
+        {
+          "nome": "Percepção",
+          "atrib": "Sab",
+          "bonus": 8,
+          "prof": true
+        },
+        {
+          "nome": "Persuasão",
+          "atrib": "Car",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Prestidigitação",
+          "atrib": "Des",
+          "bonus": 4,
+          "prof": true
+        },
+        {
+          "nome": "Religião",
+          "atrib": "Int",
+          "bonus": 3,
+          "prof": false
+        },
+        {
+          "nome": "Sobrevivência",
+          "atrib": "Sab",
+          "bonus": 1,
+          "prof": false
+        }
+      ],
+      "ataques": [
+        {
+          "nome": "Adaga",
+          "bonus": 4,
+          "dano": "1d4+2",
+          "tipo": "perfurante · 1,5m"
+        }
+      ],
+      "magias": {
+        "atributo": "Inteligência",
+        "cd": 13,
+        "ataque": 5,
+        "grupos": [
+          {
+            "titulo": "Truques (à vontade)",
+            "itens": [
+              {
+                "nome": "Mãos Mágicas",
+                "desc": "1 ação · 9 m · invoca uma mão espectral por 1 min: manipula objetos, abre portas/recipientes destrancados, guarda/pega itens (até 5 kg). Não ataca nem usa itens mágicos."
+              },
+              {
+                "nome": "Toque Arrepiante",
+                "desc": "1 ação · 36 m · ataque · 1d8 necrótico; o alvo não recupera PV até o início do seu próximo turno. Morto-vivo fica com desvantagem em ataques contra você."
+              },
+              {
+                "nome": "Prestidigitação",
+                "desc": "1 ação · 3 m · pequenos efeitos mágicos (faísca/som/odor, acende/apaga chama, limpa/suja objeto, esquenta/esfria, marca, bugiganga). Até 3 efeitos ativos."
+              }
+            ]
+          },
+          {
+            "titulo": "Magias de Ritual (sempre preparadas)",
+            "itens": [
+              {
+                "nome": "Convocar Familiar",
+                "desc": "Convoca um familiar (coruja, corvo, gato, rato, serpente etc.) com iniciativa própria. Telepatia até 30 m; pode ver/ouvir por ele; transmite magias de toque."
+              },
+              {
+                "nome": "Compreender Idiomas",
+                "desc": "1 ação · 1 hora · compreende qualquer idioma falado que ouvir e escrito que tocar (não decifra mensagens secretas)."
+              }
+            ]
+          },
+          {
+            "titulo": "Magias Preparadas (1º Círculo) — 3 Espaços",
+            "itens": [
+              {
+                "nome": "Armadura Arcana",
+                "desc": "1 ação · toque · CA 13 + Des por 8 horas."
+              },
+              {
+                "nome": "Escudo Arcano",
+                "desc": "1 reação · pessoal · +5 CA e imunidade a Mísseis Mágicos por 1 turno."
+              },
+              {
+                "nome": "Queda Suave",
+                "desc": "1 reação · 5 criaturas · queda reduzida a 18 m/rodada por 1 min."
+              },
+              {
+                "nome": "Mísseis Mágicos",
+                "desc": "1 ação · 36 m · 3 dardos de 1d4+1 de energia (+1 dardo por nível acima do 1º)."
+              },
+              {
+                "nome": "Raio Adoecente",
+                "desc": "1 ação · 18 m · ataque · 2d8 veneno + salv. Constituição; falha: envenenado até o fim do próximo turno."
+              },
+              {
+                "nome": "Onda Trovejante",
+                "desc": "1 ação · cubo de 4,5 m · salv. Constituição; falha: 2d8 e empurrado 3 m. Barulho audível a 90 m."
+              }
+            ]
+          }
+        ]
+      },
+      "tracos": [
+        {
+          "nome": "✨ Conjuração",
+          "desc": "Lança magia arcana usando Inteligência. Prepara magias após descanso longo."
+        },
+        {
+          "nome": "📚 Versátil (Humano)",
+          "desc": "+1 em dois atributos, uma perícia (Percepção) e um Talento (Observador)."
+        },
+        {
+          "nome": "👁 Talento Observador",
+          "desc": "+1 INT, Leitura Labial e +5 em Percepção e Investigação."
+        },
+        {
+          "nome": "✨ Recuperação Arcana",
+          "desc": "Recupera metade do nível em espaços de magia em um descanso curto."
+        },
+        {
+          "nome": "💀 Necromancia Instruída",
+          "desc": "O ouro e o tempo para copiar uma magia de necromancia no grimório são reduzidos à metade."
+        },
+        {
+          "nome": "💀 Colheita Sinistra (1×/turno)",
+          "desc": "Ao matar uma ou mais criaturas com magia de 1º nível ou superior, recupera PV igual ao dobro do nível da magia (ou o triplo do seu nível, se a magia for de Necromancia). Não vale para constructos ou mortos-vivos."
+        },
+        {
+          "nome": "📚 Identidade Falsa (Charlatã)",
+          "desc": "Possui uma segunda identidade com documentos e disfarces. Pode forjar documentos que já tenha visto, incluindo papéis oficiais e a caligrafia de outra pessoa."
+        }
+      ],
+      "equipamento": [
+        "Adaga",
+        "Foco Arcano",
+        "Pacote do Estudioso (40 PO)",
+        "Grimório",
+        "Kit de Disfarce",
+        "Kit de Falsificação",
+        "Ferramentas de Trapaça (Baralho de Cartas Marcadas)",
+        "Algibeira com 15 PO"
+      ],
+      "proficiencias": [
+        "Armaduras: nenhuma",
+        "Armas: adagas, dardos, fundas, bordões, bestas leves",
+        "Salvaguardas: Inteligência, Sabedoria",
+        "Ferramentas: nenhuma",
+        "Idiomas: Comum, Élfico"
+      ],
+      "personalidade": {
+        "Personalidade": "Eu minto sobre tudo.",
+        "Ideal": "Espírito livre. Ninguém me diz o que fazer.",
+        "Vínculo": "Eu enganei e arruinei a vida de uma pessoa que não merecia. Busco reparar meus erros, mas talvez nunca consiga me perdoar.",
+        "Defeito": "Sempre acho que estou sendo enganada."
+      },
+      "historia": [],
+      "anotacoes": ""
+    },
+    "avatar_url": "",
     "owner_email": ""
   }
 ]
