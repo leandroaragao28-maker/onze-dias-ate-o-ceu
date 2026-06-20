@@ -9,6 +9,13 @@ desktop.ini
 
 # Node (caso use ferramentas no futuro)
 node_modules/
+package.json
+package-lock.json
+
+# Firebase
+.firebase/
+firebase-debug.log
+*.log
 
 # Segredos locais (não comitar URL/token reais se quiser mantê-los privados)
 js/config.local.js

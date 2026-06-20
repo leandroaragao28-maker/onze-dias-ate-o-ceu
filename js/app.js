@@ -13,15 +13,20 @@ let online = false;
     if (autor) document.getElementById('r_autor').value = autor;
   } catch (e) {}
 
-  if (!API.configurado()) {
+  if (!DB.configurado()) {
     document.getElementById('aviso-config').innerHTML =
-      '<div class="aviso"><b>Falta configurar a API.</b> Abra <code>js/config.js</code> e cole a URL do Apps Script (termina em <code>/exec</code>). ' +
-      'A rolagem de dados funciona offline, mas a tripulação e o feed só aparecem após configurar.</div>';
-    setStatus(false, 'API não configurada');
+      '<div class="aviso"><b>Firebase não configurado.</b> Verifique <code>js/config.js</code>. ' +
+      'A rolagem de dados funciona offline, mas a tripulação só aparece com o Firebase ativo.</div>';
+    setStatus(false, 'Firebase não configurado');
     return;
   }
-  carregar();
-  setInterval(carregar, CONFIG.INTERVALO_POLL);
+  setStatus(true, 'tempo real');
+  DB.ouvirPersonagens(function (lista) {
+    render(lista);
+    setStatus(true, 'ao vivo · ' + new Date().toLocaleTimeString('pt-BR'));
+  });
+  DB.ouvirRolagens(function (lista) { renderFeed(lista); });
+  DB.ouvirCombate(function (c) { aplicarCombate(c); });
 })();
 
 function setStatus(ok, txt) {
@@ -30,18 +35,7 @@ function setStatus(ok, txt) {
   document.getElementById('status').textContent = txt;
 }
 
-async function carregar() {
-  try {
-    const e = await API.estado();
-    if (e.erro) return setStatus(false, 'erro: ' + e.erro);
-    render(e.personagens || []);
-    renderFeed(e.rolagens || []);
-    aplicarCombate(e.combate);
-    setStatus(true, 'Atualizado às ' + new Date().toLocaleTimeString('pt-BR'));
-  } catch (err) {
-    setStatus(false, 'sem conexão');
-  }
-}
+// Os dados chegam pelos listeners do Firestore (DB.ouvir*) — sem polling.
 
 /* ------------------------------ tripulação ------------------------------ */
 function render(lista) {
@@ -194,7 +188,7 @@ function salvarCombate(novo) {
   combate = novo;
   combateStr = '';
   aplicarCombate(novo);
-  if (API.configurado()) API.salvarCombate(novo).catch(() => {});
+  if (DB.configurado()) DB.salvarCombate(novo).catch(function () {});
 }
 
 function ordenar_(ordem, idAtual) {
@@ -246,10 +240,12 @@ function limparCombate() {
   salvarCombate(combatePadrao());
 }
 
-async function pv(id, delta) {
+function pv(id, delta) {
   const p = personagens.find(x => x.id === id);
-  if (p) { p.pv_atual = Math.max(0, Math.min(p.pv_atual + delta, p.pv_max)); render(personagens); }
-  try { const lista = await API.ajustarPV(id, delta); render(lista); } catch (e) { carregar(); }
+  if (!p) return;
+  const novo = Math.max(0, Math.min(p.pv_atual + delta, p.pv_max));
+  p.pv_atual = novo; render(personagens);       // otimista; o listener confirma
+  DB.ajustarPV(id, novo).catch(function () {});
 }
 
 /* ------------------------------ dados ------------------------------ */
@@ -326,8 +322,8 @@ async function registrar(formula, detalhe, total, crit) {
   try { localStorage.setItem('rpg_autor', autor); } catch (e) {}
   rolagens.unshift({ timestamp: Date.now(), autor, formula, detalhe, total, _crit: crit });
   renderFeed(rolagens);
-  if (!API.configurado()) return;
-  try { const lista = await API.registrarRolagem({ autor, formula, detalhe, total }); renderFeed(lista); } catch (e) {}
+  if (!DB.configurado()) return;
+  DB.registrarRolagem({ autor: autor, formula: formula, detalhe: detalhe, total: total, crit: crit }).catch(function () {});
 }
 
 function renderFeed(lista) {

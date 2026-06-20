@@ -1,0 +1,1026 @@
+[
+  {
+    "id": "aragorn",
+    "ordem": 1,
+    "nome": "Aragorn, o Grande",
+    "jogador": "Leandro",
+    "classe_nivel": "Guerreiro 2",
+    "raca": "Humano",
+    "tendencia": "Leal e Bom",
+    "antecedente": "Soldado",
+    "xp_atual": 875,
+    "xp_prox": 900,
+    "prof_bonus": 2,
+    "ca": 17,
+    "iniciativa": 2,
+    "deslocamento": "9 m",
+    "pv_max": 20,
+    "pv_atual": 20,
+    "pv_temp": 0,
+    "dados_vida": "2d10",
+    "perc_passiva": 12,
+    "forca": 17,
+    "destreza": 14,
+    "constituicao": 14,
+    "inteligencia": 8,
+    "sabedoria": 10,
+    "carisma": 12,
+    "status": "Surto de Ação",
+    "avatar_url": "",
+    "ficha": {
+      "subtitulo": "Veterano das legiões",
+      "salvaguardas": {
+        "proficientes": [
+          "forca",
+          "constituicao"
+        ],
+        "bonus": {
+          "forca": 5,
+          "destreza": 2,
+          "constituicao": 4,
+          "inteligencia": -1,
+          "sabedoria": 0,
+          "carisma": 1
+        }
+      },
+      "pericias": [
+        {
+          "nome": "Acrobacia",
+          "atrib": "Des",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "Adestrar Animais",
+          "atrib": "Sab",
+          "bonus": 2,
+          "prof": true
+        },
+        {
+          "nome": "Arcanismo",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Atletismo",
+          "atrib": "For",
+          "bonus": 5,
+          "prof": true
+        },
+        {
+          "nome": "Atuação",
+          "atrib": "Car",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Enganação",
+          "atrib": "Car",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Furtividade",
+          "atrib": "Des",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "História",
+          "atrib": "Int",
+          "bonus": 1,
+          "prof": true
+        },
+        {
+          "nome": "Intimidação",
+          "atrib": "Car",
+          "bonus": 3,
+          "prof": true
+        },
+        {
+          "nome": "Intuição",
+          "atrib": "Sab",
+          "bonus": 2,
+          "prof": true
+        },
+        {
+          "nome": "Investigação",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Medicina",
+          "atrib": "Sab",
+          "bonus": 0,
+          "prof": false
+        },
+        {
+          "nome": "Natureza",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Percepção",
+          "atrib": "Sab",
+          "bonus": 2,
+          "prof": true
+        },
+        {
+          "nome": "Persuasão",
+          "atrib": "Car",
+          "bonus": 3,
+          "prof": true
+        },
+        {
+          "nome": "Prestidigitação",
+          "atrib": "Des",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "Religião",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Sobrevivência",
+          "atrib": "Sab",
+          "bonus": 0,
+          "prof": false
+        }
+      ],
+      "ataques": [
+        {
+          "nome": "Espada Grande",
+          "bonus": 5,
+          "dano": "2d6+3",
+          "tipo": "cortante · Pesada/Duas Mãos · Maestria: Graze"
+        },
+        {
+          "nome": "Mangual",
+          "bonus": 5,
+          "dano": "1d8+3",
+          "tipo": "contundente · 1,5m · Maestria: Sap"
+        },
+        {
+          "nome": "Azagaia ×8",
+          "bonus": 5,
+          "dano": "1d6+3",
+          "tipo": "perfurante · arr. 9/36m · Maestria: Slow"
+        }
+      ],
+      "ataques_nota": "Ataques c. a c. e azagaia arremessada usam Força. Atacante Selvagem: 1×/turno, role o dano 2× e use o maior.",
+      "magias": null,
+      "tracos": [
+        {
+          "nome": "🛡 Estilo de Combate: Defesa",
+          "desc": "Enquanto usar armadura, +1 na CA (já somado)."
+        },
+        {
+          "nome": "✚ Retomar o Fôlego (1×/desc.)",
+          "desc": "Ação bônus: recupera 1d10+2 PV."
+        },
+        {
+          "nome": "⚡ Surto de Ação — Nível 2 (1×/desc.)",
+          "desc": "Em seu turno, realize 1 ação adicional."
+        },
+        {
+          "nome": "⚔ Maestria em Armas",
+          "desc": "Espada Grande (Graze), Mangual (Sap), Azagaia (Slow)."
+        },
+        {
+          "nome": "💥 Atacante Selvagem (Talento)",
+          "desc": "1×/turno, ao acertar com arma, role o dano 2× e use o maior."
+        },
+        {
+          "nome": "📚 Versátil (Talento Humano)",
+          "desc": "Proficiências extras: Persuasão, História, Adestrar Animais; perícia extra (Intuição)."
+        }
+      ],
+      "equipamento": [
+        "Cota de Malha (CA base 16)",
+        "Espada Grande",
+        "Mangual",
+        "8 Azagaias",
+        "Kit de Aventureiro",
+        "Conjunto de Dados",
+        "4 PO"
+      ],
+      "proficiencias": [
+        "Armaduras: todas + escudos",
+        "Armas: simples e marciais",
+        "Salvaguardas: Força, Constituição",
+        "Idiomas: Comum, Anão, Orc"
+      ],
+      "personalidade": {
+        "Sobre": "Veterano de muitas batalhas, serve às legiões de seu reino com honra. Aprendeu que a força protege, mas a lealdade sustenta.",
+        "Traço": "Fala pouco, mas transmite segurança.",
+        "Ideal": "Proteger os companheiros e cumprir o dever.",
+        "Vínculo": "Considera amigos aliados como irmãos de armas.",
+        "Defeito": "Tolera mal covardia e desorganização."
+      },
+      "historia": [],
+      "anotacoes": "Cota de Malha exige Força 13 (você atende). Impõe desvantagem em Furtividade.\nNo turno: Mover → Agir → Ação Bônus → Reação."
+    }
+  },
+  {
+    "id": "vorn",
+    "ordem": 2,
+    "nome": "Vorn Kael",
+    "jogador": "Tales Siebra",
+    "classe_nivel": "Bárbaro 2 (Berserker)",
+    "raca": "Humano",
+    "tendencia": "Caótico Neutro",
+    "antecedente": "Forasteiro",
+    "xp_atual": 300,
+    "xp_prox": 900,
+    "prof_bonus": 2,
+    "ca": 14,
+    "iniciativa": 2,
+    "deslocamento": "9 m",
+    "pv_max": 23,
+    "pv_atual": 23,
+    "pv_temp": 0,
+    "dados_vida": "2d12",
+    "perc_passiva": 13,
+    "forca": 16,
+    "destreza": 14,
+    "constituicao": 15,
+    "inteligencia": 11,
+    "sabedoria": 13,
+    "carisma": 9,
+    "status": "Fúria 2/2",
+    "avatar_url": "",
+    "ficha": {
+      "subtitulo": "O Punho que não recua",
+      "salvaguardas": {
+        "proficientes": [
+          "forca",
+          "constituicao"
+        ],
+        "bonus": {
+          "forca": 5,
+          "destreza": 2,
+          "constituicao": 4,
+          "inteligencia": 0,
+          "sabedoria": 1,
+          "carisma": -1
+        }
+      },
+      "pericias": [
+        {
+          "nome": "Acrobacia",
+          "atrib": "Des",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "Adestrar Animais",
+          "atrib": "Sab",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Arcanismo",
+          "atrib": "Int",
+          "bonus": 0,
+          "prof": false
+        },
+        {
+          "nome": "Atletismo",
+          "atrib": "For",
+          "bonus": 5,
+          "prof": true
+        },
+        {
+          "nome": "Atuação",
+          "atrib": "Car",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Enganação",
+          "atrib": "Car",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Furtividade",
+          "atrib": "Des",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "História",
+          "atrib": "Int",
+          "bonus": 0,
+          "prof": false
+        },
+        {
+          "nome": "Intimidação",
+          "atrib": "Car",
+          "bonus": 1,
+          "prof": true
+        },
+        {
+          "nome": "Intuição",
+          "atrib": "Sab",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Investigação",
+          "atrib": "Int",
+          "bonus": 0,
+          "prof": false
+        },
+        {
+          "nome": "Medicina",
+          "atrib": "Sab",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Natureza",
+          "atrib": "Int",
+          "bonus": 0,
+          "prof": false
+        },
+        {
+          "nome": "Percepção",
+          "atrib": "Sab",
+          "bonus": 3,
+          "prof": true
+        },
+        {
+          "nome": "Persuasão",
+          "atrib": "Car",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Prestidigitação",
+          "atrib": "Des",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "Religião",
+          "atrib": "Int",
+          "bonus": 0,
+          "prof": false
+        },
+        {
+          "nome": "Sobrevivência",
+          "atrib": "Sab",
+          "bonus": 3,
+          "prof": true
+        }
+      ],
+      "ataques": [
+        {
+          "nome": "Machado Grande",
+          "bonus": 5,
+          "dano": "1d12+3",
+          "tipo": "cortante · 1,5m · Fúria 1d12+5 · Crít. 2d12+3"
+        },
+        {
+          "nome": "Machadinha ×2",
+          "bonus": 5,
+          "dano": "1d6+3",
+          "tipo": "cortante · arr. 6/18m · Fúria 1d6+5"
+        },
+        {
+          "nome": "Azagaia ×4",
+          "bonus": 5,
+          "dano": "1d6+3",
+          "tipo": "perfurante · arr. 9/36m · Fúria 1d6+5"
+        },
+        {
+          "nome": "Desarmado",
+          "bonus": 5,
+          "dano": "1+3",
+          "tipo": "concussão · 1,5m · Fúria 1+5"
+        }
+      ],
+      "ataques_nota": "Em Fúria: +2 de dano em todos os ataques corpo a corpo com Força.",
+      "magias": null,
+      "tracos": [
+        {
+          "nome": "🔥 Fúria (2 usos/desc. longo)",
+          "desc": "Ação bônus. Vantagem em testes e salvaguardas de For; +2 dano c. a c. (For); resistência a cortante/perfurante/concussão. Dura 1 min. Encerra se não atacar nem sofrer dano no turno."
+        },
+        {
+          "nome": "🛡 Defesa sem Armadura",
+          "desc": "Sem armadura: CA = 10 + mod. Des + mod. Con. Escudo permitido."
+        },
+        {
+          "nome": "💀 Ataque Imprudente",
+          "desc": "No 1º ataque do turno, ataque com vantagem (For, c. a c.); ataques contra você têm vantagem até seu próximo turno."
+        },
+        {
+          "nome": "👁 Sentido de Perigo",
+          "desc": "Vantagem em salvaguardas de Des contra efeitos visíveis."
+        },
+        {
+          "nome": "📚 Versátil (Humano)",
+          "desc": "+1 em todos os atributos (já somado acima)."
+        },
+        {
+          "nome": "🧭 Andarilho (Forasteiro)",
+          "desc": "Sempre encontra comida e água potável para si e mais 5 pessoas em territórios selvagens. Conhece atalhos, abrigos e sinais da natureza."
+        }
+      ],
+      "equipamento": [
+        "Machado Grande",
+        "Machadinha (×2)",
+        "Azagaia (×4)",
+        "Pacote do Explorador",
+        "Roupas comuns",
+        "Instrumento musical ou jogo (dados)",
+        "Bolsa com 10 PO"
+      ],
+      "proficiencias": [
+        "Armaduras: leves, médias, escudos",
+        "Armas: simples e marciais",
+        "Salvaguardas: Força, Constituição",
+        "Ferramentas: instrumento musical ou jogo",
+        "Idiomas: Comum, Élfico"
+      ],
+      "personalidade": {
+        "Lema": "“O mundo respeita força. Eu respeito quem fica de pé depois de cair.”",
+        "Crença": "“Não existe destino. Existe o que você aguenta e o que você não aguenta.”",
+        "Ideal": "Liberdade. Nenhuma lei, rei ou deus dita o que ele faz.",
+        "Vínculo": "Há alguém que ele protege sem explicar por quê — a única âncora que ainda o prende ao mundo.",
+        "Defeito": "Quando bate, não mede. Já destruiu coisas que não queria destruir.",
+        "Código do Punho": "“Não ataco quem não começou. Não abandono quem caiu do meu lado. Não minto para quem confia em mim.”"
+      },
+      "historia": [],
+      "anotacoes": "Frases: \"Começa.\" · \"Eu aviso uma vez.\" · \"Deixa o machado resolver.\"\nSem armadura — checar CA se equipar escudo (+2)."
+    }
+  },
+  {
+    "id": "raelag",
+    "ordem": 3,
+    "nome": "Raelag Rola",
+    "jogador": "—",
+    "classe_nivel": "Paladino 2",
+    "raca": "Humano",
+    "tendencia": "Leal e Neutro",
+    "antecedente": "Marinheiro Mercenário",
+    "xp_atual": 300,
+    "xp_prox": 900,
+    "prof_bonus": 2,
+    "ca": 19,
+    "iniciativa": 2,
+    "deslocamento": "9 m",
+    "pv_max": 20,
+    "pv_atual": 20,
+    "pv_temp": 0,
+    "dados_vida": "2d10",
+    "perc_passiva": 13,
+    "forca": 16,
+    "destreza": 14,
+    "constituicao": 14,
+    "inteligencia": 8,
+    "sabedoria": 12,
+    "carisma": 14,
+    "status": "Imposição 10/10",
+    "avatar_url": "",
+    "ficha": {
+      "subtitulo": "Debitum Abyssi — A Dívida do Abismo",
+      "perfil": {
+        "Idade": "39 anos",
+        "Altura": "1,85 m",
+        "Peso": "98 kg",
+        "Juramento (futuro)": "Juramento da Vingança",
+        "Religião": "Fé prática"
+      },
+      "salvaguardas": {
+        "proficientes": [
+          "sabedoria",
+          "carisma"
+        ],
+        "bonus": {
+          "forca": 3,
+          "destreza": 2,
+          "constituicao": 2,
+          "inteligencia": -1,
+          "sabedoria": 3,
+          "carisma": 4
+        }
+      },
+      "pericias": [
+        {
+          "nome": "Acrobacia",
+          "atrib": "Des",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "Adestrar Animais",
+          "atrib": "Sab",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Arcanismo",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Atletismo",
+          "atrib": "For",
+          "bonus": 5,
+          "prof": true
+        },
+        {
+          "nome": "Atuação",
+          "atrib": "Car",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "Enganação",
+          "atrib": "Car",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "Furtividade",
+          "atrib": "Des",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "História",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Intimidação",
+          "atrib": "Car",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "Intuição",
+          "atrib": "Sab",
+          "bonus": 3,
+          "prof": true
+        },
+        {
+          "nome": "Investigação",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Medicina",
+          "atrib": "Sab",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Natureza",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Percepção",
+          "atrib": "Sab",
+          "bonus": 3,
+          "prof": true
+        },
+        {
+          "nome": "Persuasão",
+          "atrib": "Car",
+          "bonus": 4,
+          "prof": true
+        },
+        {
+          "nome": "Prestidigitação",
+          "atrib": "Des",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "Religião",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Sobrevivência",
+          "atrib": "Sab",
+          "bonus": 1,
+          "prof": false
+        }
+      ],
+      "ataques": [
+        {
+          "nome": "Espada Longa",
+          "bonus": 5,
+          "dano": "1d8+3 (1m) / 1d10+3 (2m)",
+          "tipo": "cortante · 1,5m"
+        },
+        {
+          "nome": "Azagaia ×5",
+          "bonus": 4,
+          "dano": "1d6+2",
+          "tipo": "perfurante · arr. 9/36m"
+        }
+      ],
+      "ataques_nota": "Destruição Divina: ao acertar c. a c., gaste 1 espaço de magia para +2d8 radiante (+3d8 vs mortos-vivos/corruptores).",
+      "magias": {
+        "atributo": "Carisma",
+        "cd": 12,
+        "ataque": 4,
+        "grupos": [
+          {
+            "titulo": "Magias Conhecidas (1º Círculo)",
+            "itens": [
+              {
+                "nome": "Escudo da Fé",
+                "desc": "Abjuração · ação bônus · 1 criatura · +2 na CA · 10 min."
+              },
+              {
+                "nome": "Comando",
+                "desc": "Encantamento · ação · 18 m · salv. Sabedoria CD 12; falha: obedece 1 palavra de comando."
+              },
+              {
+                "nome": "Curar Ferimentos",
+                "desc": "Evocação · ação · toque · restaura 1d8+3 PV."
+              }
+            ]
+          }
+        ]
+      },
+      "tracos": [
+        {
+          "nome": "⚔ Estilo de Combate: Defesa",
+          "desc": "Enquanto usar armadura, +1 na CA (já somado)."
+        },
+        {
+          "nome": "✋ Imposição das Mãos",
+          "desc": "Reserva de 10 PV de cura, distribuída ao tocar criaturas. 5 PV neutralizam 1 veneno/doença."
+        },
+        {
+          "nome": "☀ Sentido Divino (3×/desc. longo)",
+          "desc": "Ação. Detecta celestiais, infernais e mortos-vivos em 18 m por 1 turno."
+        },
+        {
+          "nome": "⚡ Destruição Divina (Divine Smite)",
+          "desc": "Ao acertar c. a c., gaste 1 espaço de magia: +2d8 radiante (+3d8 vs mortos-vivos/corruptores)."
+        },
+        {
+          "nome": "✨ Conjuração",
+          "desc": "Lança magia divina usando Carisma. Prepara magias após descanso longo."
+        },
+        {
+          "nome": "⚓ Marinheiro (Antecedente)",
+          "desc": "Conhece rotas, ventos e mares. Tem contatos em portos e navios. Sabe sobreviver em mar aberto."
+        }
+      ],
+      "equipamento": [
+        "Cota de Malha",
+        "Escudo",
+        "Espada Longa",
+        "Azagaias (5)",
+        "Símbolo Sagrado",
+        "Mochila de Aventureiro",
+        "Equipamento de Marinheiro"
+      ],
+      "proficiencias": [
+        "Armaduras: todas + escudos",
+        "Armas: simples e marciais",
+        "Salvaguardas: Sabedoria, Carisma",
+        "Ferramentas: Kit de Navegação, Kit de Marinheiro",
+        "Idiomas: Comum, Abissal"
+      ],
+      "personalidade": {
+        "Lema": "“Os deuses não me guiam. O propósito sim.”",
+        "Ideal": "Os deuses existem. Mas são distantes, indiferentes e ocupados demais para se importar com homens como eu.",
+        "Vínculo": "Carrego os nomes dos que não sobreviveram ao mar. Enquanto eu respirar, suas mortes terão significado.",
+        "Defeito": "Não confio facilmente. E quando confio... raramente perdoo traições.",
+        "Código de Honra": "Contratos devem ser cumpridos · Nunca abandonar quem lutou ao seu lado · Nunca atacar inocentes · Criaturas sobrenaturais não merecem misericórdia · Ouro compra minha espada, nunca minha palavra.",
+        "Frases": "“Eu não vendo lealdade. Apenas resultados.” · “Se respira, eu negocio; se amaldiçoa, eu executo.” · “Monstros não entendem piedade.” · “O oceano leva homens bons. Eu devolvo o favor.”"
+      },
+      "historia": [
+        {
+          "titulo": "História",
+          "texto": "Durante anos, Raelag Rola vendeu sua espada a senhores da guerra, capitães piratas e comerciantes que pagassem o suficiente. Nunca jurou lealdade a coroas, nunca serviu por glória, nunca acreditou em heroísmo. Para ele, o mundo seguia uma única verdade: “todo homem tem um preço; todo contrato tem consequências.” Após sobreviver a uma expedição perdida nas águas amaldiçoadas do Mar Negro de Vardrake, testemunhou horrores que ninguém poderia comprar. Desde então, passou a caçar criaturas que desafiam a ordem natural da vida e da morte. Seu juramento não nasceu da fé — nasceu da dívida. E agora, monstros pagam caro."
+        },
+        {
+          "titulo": "Registro 47-A — Costa de Vardrake",
+          "texto": "Relatos confirmam o desaparecimento de quatro criaturas abissais próximas às ilhas do norte. Testemunhas afirmam ter visto um cavaleiro negro deixando o local pouco antes do amanhecer. Nenhum sobrevivente viu seu rosto — apenas o símbolo permaneceu: Debitum Abyssi."
+        }
+      ],
+      "anotacoes": "Cota de Malha impõe desvantagem em Furtividade. CA 19 = 16 + escudo (+2) + Defesa (+1). Sabedoria Passiva (Percepção) 13."
+    }
+  },
+  {
+    "id": "dorin",
+    "ordem": 4,
+    "nome": "Dorin Forjafogo",
+    "jogador": "—",
+    "classe_nivel": "Clérigo 2 (Forja)",
+    "raca": "Anão da Colina",
+    "tendencia": "Leal e Neutro",
+    "antecedente": "Acólito",
+    "xp_atual": 300,
+    "xp_prox": 900,
+    "prof_bonus": 2,
+    "ca": 18,
+    "iniciativa": 0,
+    "deslocamento": "7,5 m",
+    "pv_max": 21,
+    "pv_atual": 21,
+    "pv_temp": 0,
+    "dados_vida": "2d8",
+    "perc_passiva": 13,
+    "forca": 14,
+    "destreza": 10,
+    "constituicao": 17,
+    "inteligencia": 8,
+    "sabedoria": 16,
+    "carisma": 12,
+    "status": "Bênção da Forja",
+    "avatar_url": "",
+    "ficha": {
+      "subtitulo": "Clérigo da Forja · Devoto de Moradin",
+      "perfil": {
+        "Divindade": "Moradin",
+        "Domínio": "Forja"
+      },
+      "salvaguardas": {
+        "proficientes": [
+          "sabedoria",
+          "carisma"
+        ],
+        "bonus": {
+          "forca": 2,
+          "destreza": 0,
+          "constituicao": 3,
+          "inteligencia": -1,
+          "sabedoria": 5,
+          "carisma": 3
+        }
+      },
+      "pericias": [
+        {
+          "nome": "Acrobacia",
+          "atrib": "Des",
+          "bonus": 0,
+          "prof": false
+        },
+        {
+          "nome": "Adestrar Animais",
+          "atrib": "Sab",
+          "bonus": 3,
+          "prof": false
+        },
+        {
+          "nome": "Arcanismo",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Atletismo",
+          "atrib": "For",
+          "bonus": 2,
+          "prof": false
+        },
+        {
+          "nome": "Atuação",
+          "atrib": "Car",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Enganação",
+          "atrib": "Car",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Furtividade",
+          "atrib": "Des",
+          "bonus": 0,
+          "prof": false
+        },
+        {
+          "nome": "História",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Intimidação",
+          "atrib": "Car",
+          "bonus": 1,
+          "prof": false
+        },
+        {
+          "nome": "Intuição",
+          "atrib": "Sab",
+          "bonus": 5,
+          "prof": true
+        },
+        {
+          "nome": "Investigação",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Medicina",
+          "atrib": "Sab",
+          "bonus": 5,
+          "prof": true
+        },
+        {
+          "nome": "Natureza",
+          "atrib": "Int",
+          "bonus": -1,
+          "prof": false
+        },
+        {
+          "nome": "Percepção",
+          "atrib": "Sab",
+          "bonus": 3,
+          "prof": false
+        },
+        {
+          "nome": "Persuasão",
+          "atrib": "Car",
+          "bonus": 3,
+          "prof": true
+        },
+        {
+          "nome": "Prestidigitação",
+          "atrib": "Des",
+          "bonus": 0,
+          "prof": false
+        },
+        {
+          "nome": "Religião",
+          "atrib": "Int",
+          "bonus": 1,
+          "prof": true
+        },
+        {
+          "nome": "Sobrevivência",
+          "atrib": "Sab",
+          "bonus": 3,
+          "prof": false
+        }
+      ],
+      "ataques": [
+        {
+          "nome": "Martelo de Guerra",
+          "bonus": 4,
+          "dano": "1d8+2 (1m) / 1d10+2 (2m)",
+          "tipo": "contundente · 1,5m"
+        },
+        {
+          "nome": "Chama Sagrada (truque)",
+          "bonus": null,
+          "dano": "1d8 radiante",
+          "tipo": "18 m · salv. Destreza CD 13"
+        }
+      ],
+      "ataques_nota": "Chama Sagrada: o alvo faz salvaguarda de Destreza CD 13 ou sofre 1d8 radiante.",
+      "magias": {
+        "atributo": "Sabedoria",
+        "cd": 13,
+        "ataque": 5,
+        "grupos": [
+          {
+            "titulo": "Truques (à vontade)",
+            "itens": [
+              {
+                "nome": "Orientação",
+                "desc": "1 ação · toque · +1d4 em um teste de atributo por 1 min."
+              },
+              {
+                "nome": "Chama Sagrada",
+                "desc": "1 ação · 18 m · salv. Destreza CD 13; falha: 1d8 radiante."
+              },
+              {
+                "nome": "Consertar",
+                "desc": "1 min · repara pequenos danos em objetos."
+              }
+            ]
+          },
+          {
+            "titulo": "Magias de Domínio (sempre preparadas)",
+            "itens": [
+              {
+                "nome": "Identificar",
+                "desc": "Descobre as propriedades mágicas de um objeto."
+              },
+              {
+                "nome": "Golpe Ardente",
+                "desc": "Ação bônus · concentração · próximo ataque +1d6 fogo; alvo pode continuar queimando (+1d6 fogo/turno)."
+              }
+            ]
+          },
+          {
+            "titulo": "Magias Preparadas (1º Círculo)",
+            "itens": [
+              {
+                "nome": "Bênção",
+                "desc": "1 ação · concentração · até 3 criaturas: +1d4 em ataques e salvaguardas."
+              },
+              {
+                "nome": "Palavra Curativa",
+                "desc": "Ação bônus · 18 m · cura 1d4+3 PV."
+              },
+              {
+                "nome": "Curar Ferimentos",
+                "desc": "1 ação · toque · cura 1d8+3 PV."
+              },
+              {
+                "nome": "Escudo da Fé",
+                "desc": "1 ação · concentração · +2 CA por até 10 min."
+              },
+              {
+                "nome": "Comando",
+                "desc": "1 ação · 18 m · salv. Sabedoria CD 13; falha: obedece uma ordem simples por 1 turno."
+              }
+            ]
+          }
+        ]
+      },
+      "tracos": [
+        {
+          "nome": "⚒ Bênção da Forja (1×/desc. longo)",
+          "desc": "Concede +1 em uma arma ou armadura não mágica até o próximo descanso longo."
+        },
+        {
+          "nome": "✨ Canalizar Divindade: Bênção do Artesão (1×/desc.)",
+          "desc": "Cria um objeto metálico não mágico de até 100 PO usando metal equivalente."
+        },
+        {
+          "nome": "🛡 Armadura Pesada (Domínio da Forja)",
+          "desc": "Proficiência com armaduras pesadas."
+        },
+        {
+          "nome": "🌑 Visão no Escuro 18m (Anão)",
+          "desc": "Enxerga no escuro como penumbra; não distingue cores."
+        },
+        {
+          "nome": "⚒ Resiliência Anã",
+          "desc": "Vantagem em salvaguardas contra veneno; resistência a dano de veneno."
+        },
+        {
+          "nome": "💪 Robustez Anã (Colina)",
+          "desc": "+1 PV máximo por nível (já incluído nos 21 PV)."
+        },
+        {
+          "nome": "✨ Conjuração",
+          "desc": "Lança magia divina usando Sabedoria. Prepara magias após descanso longo."
+        },
+        {
+          "nome": "⛪ Abrigo dos Fiéis (Acólito)",
+          "desc": "Recebe abrigo, alimentação simples e auxílio básico em templos e comunidades religiosas ligadas a Moradin."
+        }
+      ],
+      "equipamento": [
+        "Martelo de Guerra",
+        "Escudo",
+        "Cota de Malha",
+        "Símbolo Sagrado de Moradin",
+        "Mochila de Aventureiro"
+      ],
+      "proficiencias": [
+        "Armaduras: leves, médias, pesadas + escudos",
+        "Armas: simples",
+        "Salvaguardas: Sabedoria, Carisma",
+        "Ferramentas: de Ferreiro (forjar/reparar/avaliar metais); de Pedreiro (falhas estruturais, passagens ocultas)",
+        "Idiomas: Comum, Anão, Celestial, Gigante"
+      ],
+      "personalidade": {
+        "Crença": "“O aço não escolhe quem proteger. Ele apenas cumpre sua função. Eu também.”",
+        "Personalidade": "Disciplinado, paciente e confiável. Valoriza a tradição, a palavra dada e o trabalho bem executado.",
+        "Ideal": "Dever. Uma sociedade forte se constrói quando todos cumprem suas obrigações com honra.",
+        "Vínculo": "Meus companheiros são meu clã. Enquanto eu estiver de pé, nenhum deles enfrentará o perigo sozinho.",
+        "Defeito": "Pouca paciência para os irresponsáveis, desonrados ou que quebram promessas.",
+        "Oração": "“Moradin, fortalece minhas mãos para o trabalho, meu braço para a batalha e meu coração para proteger os que estão sob minha guarda.”",
+        "Lema": "“A forja molda o metal. As dificuldades moldam o caráter.”",
+        "Frases": "“Uma promessa vale mais que ouro.” · “A pressa estraga o aço.” · “Mantenha a formação.” · “Faça seu trabalho e eu farei o meu.”"
+      },
+      "historia": [],
+      "anotacoes": "CA 18 = Cota de Malha (16) + Escudo (+2). Robustez Anã: +1 PV/nível (incluído). Resiliência Anã: vantagem vs veneno."
+    }
+  }
+]

@@ -7,30 +7,25 @@ const ATRIBS = [
 let alvoEl, atual = null;
 carregarFicha();
 
-async function carregarFicha() {
+function carregarFicha() {
   alvoEl = document.getElementById('ficha');
   const id = new URLSearchParams(location.search).get('id');
-  if (!API.configurado()) { alvoEl.innerHTML = '<div class="aviso">Configure <code>js/config.js</code> com a URL do Apps Script.</div>'; return; }
-  try {
-    const lista = await API.personagens();
-    atual = (lista || []).find(x => x.id === id);
-    if (!atual) { alvoEl.innerHTML = '<div class="aviso">Personagem não encontrado.</div>'; return; }
-    alvoEl.innerHTML = render(atual);
-  } catch (e) {
-    alvoEl.innerHTML = '<div class="aviso">Erro ao carregar: ' + esc(String(e)) + '</div>';
-  }
+  if (!DB.configurado()) { alvoEl.innerHTML = '<div class="aviso">Firebase não configurado em <code>js/config.js</code>.</div>'; return; }
+  if (!id) { alvoEl.innerHTML = '<div class="aviso">Personagem não informado.</div>'; return; }
+  DB.ouvirPersonagem(id, function (p) {          // tempo real: PV/dados atualizam sozinhos
+    if (!p) { alvoEl.innerHTML = '<div class="aviso">Personagem não encontrado.</div>'; return; }
+    atual = p;
+    alvoEl.innerHTML = render(p);
+  });
 }
 
 // Ajuste de PV na ficha (só aparece para quem pode editar este personagem).
-window.ajPV = async function (delta) {
+window.ajPV = function (delta) {
   if (!atual) return;
-  atual.pv_atual = Math.max(0, Math.min(atual.pv_atual + delta, atual.pv_max));
-  alvoEl.innerHTML = render(atual); // otimista
-  try {
-    const lista = await API.ajustarPV(atual.id, delta);
-    const novo = (lista || []).find(x => x.id === atual.id);
-    if (novo) { atual = novo; alvoEl.innerHTML = render(atual); }
-  } catch (e) {}
+  const novo = Math.max(0, Math.min(atual.pv_atual + delta, atual.pv_max));
+  atual.pv_atual = novo;
+  alvoEl.innerHTML = render(atual);              // otimista; o listener confirma
+  DB.ajustarPV(atual.id, novo).catch(function () {});
 };
 
 function mod(v) { const m = Math.floor((v - 10) / 2); return (m >= 0 ? '+' : '') + m; }

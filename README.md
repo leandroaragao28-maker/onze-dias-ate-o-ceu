@@ -1,36 +1,53 @@
 # ⚓ Onze Dias Até o Céu — Painel da Tripulação
 
 WebApp de fichas e mesa de RPG (**D&D 5e**) para sessões online narradas pelo Discord.
-Frontend estático no **GitHub Pages**, backend e banco no **Google Apps Script + Google Sheets**.
 
-## Arquitetura
+**No ar:** https://onze-dias-ate-o-ceu.web.app
+
+## Arquitetura (Firebase)
 
 ```
-Navegador (celular)  ──HTTP──▶  GitHub Pages (HTML/CSS/JS estático)
-        │
-        └──fetch JSON──▶  Apps Script /exec (API)  ──▶  Google Sheets (banco)
+Navegador (celular)  ◀── tempo real (onSnapshot) ──▶  Cloud Firestore (banco)
+        ▲
+        └── arquivos estáticos ── Firebase Hosting (HTML/CSS/JS)
 ```
 
-- **GitHub Pages** serve `index.html`, `ficha.html`, `css/`, `js/`.
-- **Apps Script** expõe uma API JSON (`doGet`/`doPost`) e lê/grava na planilha.
-- O front busca o estado a cada 5s (polling) → sincronização "ao vivo".
+- **Firebase Hosting** serve `index.html`, `ficha.html`, `css/`, `js/`.
+- **Cloud Firestore** é o banco em **tempo real** — os listeners (`onSnapshot`) atualizam tudo na hora, sem polling.
+- Segurança pelas **regras** do Firestore (hoje abertas — modelo social entre amigos).
+
+> A versão anterior (GitHub Pages + Apps Script + Google Sheets) fica preservada na pasta `apps-script/` como backup/histórico.
 
 ## Estrutura do repositório
 
 ```
-index.html            Painel: tripulação + rolador de dados + feed
+index.html            Painel: tripulação + iniciativa + dados + feed
 ficha.html            Ficha completa de um personagem (?id=...)
 css/style.css         Tema naval, mobile-first
-js/config.js          URL da API + token  (PREENCHER após implantar)
-js/api.js             Camada de acesso à API
-js/app.js             Lógica do painel e dos dados
+js/config.js          firebaseConfig + chave do mestre
+js/db.js              Camada de dados em tempo real (Firestore)
+js/app.js             Lógica do painel
 js/ficha.js           Renderização da ficha completa
-apps-script/Codigo.gs Backend da API (cole no editor do Apps Script)
-apps-script/Seed.gs   Os 4 personagens oficiais (rode 1x)
-documentacao/modelo-de-dados.md  Esquema das abas
+js/identidade.js      Modelo "reivindicar personagem"
+js/pwa.js             Service worker + banners (instalar/atualizar)
+firebase.json         Hosting + Firestore
+firestore.rules       Regras de segurança
+seed-firestore.mjs    Seed dos 4 personagens (rodado 1x)
+apps-script/          [legado] backend antigo (Apps Script + Sheets)
 ```
 
-## Como colocar no ar
+## Deploy (Firebase)
+
+```
+firebase deploy            # hosting + regras do Firestore
+node seed-firestore.mjs    # popular o Firestore (uma única vez)
+```
+
+Publica em `https://onze-dias-ate-o-ceu.web.app`. O `js/config.js` já vem com o `firebaseConfig`.
+
+---
+
+## [Legado] Backend antigo (Google Sheets + Apps Script)
 
 ### 1) Backend (Google Sheets + Apps Script)
 1. Crie uma planilha em **https://sheets.new**.

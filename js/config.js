@@ -1,10 +1,13 @@
-// config.js — preencha após implantar o Apps Script.
-// 1. No editor do Apps Script: Implantar ▸ Nova implantação ▸ App da Web.
-// 2. Copie a URL que termina em /exec e cole abaixo.
-// 3. O TOKEN deve ser igual ao TOKEN do Codigo.gs.
+// config.js — configuração do Firebase (gerada pelo Firebase CLI).
+// A apiKey aqui é pública por design; a segurança fica nas REGRAS do Firestore.
 window.CONFIG = {
-  API_URL: 'https://script.google.com/macros/s/AKfycbz6PNyLyoUUqv6lq2P36WdguXBFSO4yiTMMznU2QAIJCyI5puzGuA1fGij3Y7LGUTGK_Q/exec',
-  TOKEN: 'onze-dias',
-  MESTRE_KEY: 'mestre-onze', // chave que o mestre digita para liberar a edição de todas as fichas
-  INTERVALO_POLL: 5000 // ms entre atualizações automáticas
+  firebase: {
+    apiKey: "AIzaSyCvDK1OWoC7nB8j9KDi1axkJ5lgqHDacn4",
+    authDomain: "onze-dias-ate-o-ceu.firebaseapp.com",
+    projectId: "onze-dias-ate-o-ceu",
+    storageBucket: "onze-dias-ate-o-ceu.firebasestorage.app",
+    messagingSenderId: "664538033951",
+    appId: "1:664538033951:web:1b6f91a8d3803b13760a2a"
+  },
+  MESTRE_KEY: 'mestre-onze' // chave do mestre para liberar a edição de todas as fichas
 };
