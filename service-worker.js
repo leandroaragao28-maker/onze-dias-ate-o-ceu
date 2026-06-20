@@ -1,12 +1,12 @@
-﻿/* Service Worker â€” cache do app + detecÃ§Ã£o de atualizaÃ§Ã£o.
- * IMPORTANTE: a cada deploy de mudanÃ§a no front, suba o VERSION abaixo.
- * Trocar o VERSION muda este arquivo â†’ o navegador detecta a nova versÃ£o
- * e o js/pwa.js mostra o banner "Nova versÃ£o disponÃ­vel".
+/* Service Worker — cache do app + detecção de atualização.
+ * IMPORTANTE: a cada deploy de mudança no front, suba o VERSION abaixo.
+ * Trocar o VERSION muda este arquivo → o navegador detecta a nova versão
+ * e o js/pwa.js mostra o banner "Nova versão disponível".
  */
 const VERSION = 'v10';
 const CACHE = 'onze-dias-' + VERSION;
 
-// Caminhos relativos ao escopo (/onze-dias-ate-o-ceu/).
+// Caminhos relativos ao escopo (raiz do site).
 const ASSETS = [
   './', 'index.html', 'ficha.html',
   'css/style.css',
@@ -17,7 +17,7 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', (e) => {
-  // NÃ£o chama skipWaiting: o SW novo fica "esperando" atÃ© o jogador tocar em Atualizar.
+  // Não chama skipWaiting: o SW novo fica "esperando" até o jogador tocar em Atualizar.
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)));
 });
 
@@ -36,7 +36,7 @@ self.addEventListener('message', (e) => {
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   const url = new URL(req.url);
-  // SÃ³ cuida do prÃ³prio site. A API (script.google.com) e qualquer POST passam direto.
+  // Só cuida do próprio site. API/Firestore e qualquer POST passam direto.
   if (req.method !== 'GET' || url.origin !== location.origin) return;
   e.respondWith(
     caches.match(req).then((hit) => hit || fetch(req).then((res) => {
