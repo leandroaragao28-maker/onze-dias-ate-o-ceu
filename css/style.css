@@ -206,3 +206,66 @@ input, select { background: var(--parch2); border: 1px solid var(--edge); color:
 .comb-x { background: transparent; border: none; color: var(--ink-soft); cursor: pointer; font-size: 13px; padding: 2px 4px; }
 .comb-acoes { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
 .comb-acoes .btn-id { flex: 1; min-width: 110px; }
+
+/* ===================== Ficha estilo oficial (responsiva) ===================== */
+body.pagina-ficha { max-width: 1040px; }
+
+.ficha-cab { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 12px;
+  background: var(--leather) url("../img/couro.jpg") center/cover; border: 1px solid var(--gold); border-radius: 10px;
+  padding: 12px 14px; box-shadow: inset 0 0 0 1px rgba(176,141,62,.25); }
+.ficha-cab-id { display: flex; align-items: center; gap: 12px; flex: 1 1 240px; min-width: 0; }
+.ficha-nome { font-family: "Cinzel", Georgia, serif; font-size: 22px; font-weight: 700; color: var(--gold-soft); line-height: 1.1; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+.ficha-sub { color: var(--cream-dim); font-size: 12px; margin-top: 2px; }
+.cab-grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; flex: 2 1 320px; }
+.cab-campo { background: var(--parch2); border: 1px solid var(--edge); border-radius: 7px; padding: 5px 8px; min-width: 0; }
+.cab-v { color: var(--ink); font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cab-r { color: var(--ink-soft); font-size: 9px; text-transform: uppercase; letter-spacing: .5px; }
+
+.folha { display: grid; grid-template-columns: 1fr; gap: 10px; align-items: start; }
+@media (min-width: 620px) { .folha { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 940px) { .folha { grid-template-columns: 0.92fr 1.12fr 1fr; } }
+.col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+
+.box { background: var(--parch) url("../img/pergaminho.jpg") center/cover; color: var(--ink);
+  border: 1px solid var(--edge); border-radius: 9px; padding: 10px 12px 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,250,235,.25); }
+.box-rotulo { text-align: center; font-family: "Cinzel", Georgia, serif; font-size: 10px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--ink-soft); border-top: 1px solid var(--line); margin-top: 8px; padding-top: 5px; }
+
+.atributos-of { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+@media (min-width: 940px) { .atributos-of { grid-template-columns: repeat(2, 1fr); } }
+.attr-of { background: var(--parch2); border: 2px solid var(--edge); border-radius: 12px; text-align: center; padding: 7px 4px 15px; position: relative; }
+.attr-of .a-nome { font-family: "Cinzel", Georgia, serif; font-size: 9px; letter-spacing: .5px; text-transform: uppercase; color: var(--ink-soft); }
+.attr-of .a-mod { font-family: "Cinzel", Georgia, serif; font-size: 26px; font-weight: 700; color: var(--ink); line-height: 1.15; }
+.attr-of .a-valor { position: absolute; bottom: -11px; left: 50%; transform: translateX(-50%); background: var(--parch);
+  border: 1px solid var(--edge); border-radius: 12px; padding: 1px 10px; font-size: 12px; font-weight: 700; color: var(--ink); }
+
+.mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mini-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.mini-of { background: var(--parch2); border: 1px solid var(--edge); border-radius: 9px; text-align: center; padding: 8px 4px; }
+.mini-of .v { font-family: "Cinzel", Georgia, serif; font-size: 19px; font-weight: 700; color: var(--ink); }
+.mini-of .r { font-size: 9px; text-transform: uppercase; letter-spacing: .4px; color: var(--ink-soft); margin-top: 2px; }
+
+.lista-of { font-size: 12.5px; color: var(--ink); }
+.lista-of .ln { display: flex; align-items: baseline; gap: 6px; padding: 2px 0; border-bottom: 1px dotted rgba(110,90,55,.35); }
+.lista-of .ln:last-child { border-bottom: none; }
+.lista-of .ka { color: var(--ink-soft); font-size: 11px; }
+.lista-of .b { margin-left: auto; font-weight: 700; }
+.ponto { color: var(--wine); } .ponto-off { color: var(--ink-soft); }
+.ln-prof { font-size: 12px; color: var(--ink); padding: 3px 0; border-bottom: 1px dotted rgba(110,90,55,.35); }
+.ln-prof:last-child { border-bottom: none; }
+
+.hp-of { background: var(--parch2); border: 1px solid var(--edge); border-radius: 9px; padding: 10px; text-align: center; }
+.hp-num { font-family: "Cinzel", Georgia, serif; font-size: 30px; font-weight: 700; color: var(--ink); }
+.hp-num span { font-size: 18px; color: var(--ink-soft); }
+.hp-of .pv-barra { margin-top: 8px; }
+
+.atk-of { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.atk-of th { font-size: 9px; text-transform: uppercase; letter-spacing: .5px; color: var(--ink-soft); text-align: left; padding: 2px 4px; }
+.atk-of td { border-top: 1px solid var(--line); padding: 6px 4px; color: var(--ink); vertical-align: top; }
+.atk-of td.b { color: var(--wine); font-weight: 700; white-space: nowrap; }
+.atk-of .sub { color: var(--ink-soft); font-size: 10.5px; margin-top: 1px; }
+.atk-nota { color: var(--ink-soft); font-size: 11px; margin-top: 8px; }
+
+.texto-of { font-size: 13px; color: var(--ink); line-height: 1.5; }
+.grupo-magia { font-family: "Cinzel", Georgia, serif; color: var(--wine); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; margin: 10px 0 4px; }
