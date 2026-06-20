@@ -7,15 +7,16 @@
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
       navigator.serviceWorker.register('service-worker.js').then(function (reg) {
-        if (reg.waiting && navigator.serviceWorker.controller) mostrarUpdate(reg);
+        // Atualização AUTOMÁTICA: aplica a versão nova sozinho e recarrega (sem banner, sem toque).
+        if (reg.waiting && navigator.serviceWorker.controller) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
         reg.addEventListener('updatefound', function () {
           var nw = reg.installing;
           if (!nw) return;
           nw.addEventListener('statechange', function () {
-            if (nw.state === 'installed' && navigator.serviceWorker.controller) mostrarUpdate(reg);
+            if (nw.state === 'installed' && navigator.serviceWorker.controller) nw.postMessage({ type: 'SKIP_WAITING' });
           });
         });
-        // Checa sozinho a cada 60s: o banner aparece por conta própria, sem hard refresh.
+        // Checa por atualização a cada 60s (e ao voltar ao app).
         setInterval(function () { reg.update().catch(function () {}); }, 60000);
       }).catch(function () {});
 
