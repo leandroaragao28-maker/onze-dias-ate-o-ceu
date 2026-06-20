@@ -3,8 +3,15 @@ let personagens = [];
 let rolagens = [];
 let combate = { ativo: false, round: 0, turno: 0, ordem: [] };
 let combateStr = '';
-let vantDesv = 0;
+let vantDesv = 0;       // vant/desv do rolador livre
+let vdFicha = 0;        // vant/desv da rolagem por ficha
+let rfCharId = null;    // personagem escolhido pelo mestre para rolar
 let online = false;
+
+const ATRIBOS = [['forca', 'Força'], ['destreza', 'Destreza'], ['constituicao', 'Constituição'], ['inteligencia', 'Inteligência'], ['sabedoria', 'Sabedoria'], ['carisma', 'Carisma']];
+function sinal(n) { return (n >= 0 ? '+' : '') + n; }
+function modAtrib(v) { return Math.floor((v - 10) / 2); }
+function nomeAtrib(k) { const a = ATRIBOS.find(x => x[0] === k); return a ? a[1] : k; }
 
 /* ----------------------------- inicialização ----------------------------- */
 (function init() {
@@ -55,6 +62,7 @@ function render(lista) {
   el.innerHTML = lista.length ? lista.map(card).join('') :
     '<div class="carregando">Nenhum personagem. Rode popularBaseDeDados() no Apps Script.</div>';
   renderIdentidade();
+  renderRolagemFicha();
 }
 
 function card(p) {
@@ -331,27 +339,160 @@ function mostrarResultado(total, detalhe, crit) {
   document.getElementById('resultado-det').textContent = etq + detalhe;
 }
 
-async function registrar(formula, detalhe, total, crit) {
-  const autor = get('r_autor').trim() || 'Anônimo';
-  try { localStorage.setItem('rpg_autor', autor); } catch (e) {}
-  rolagens.unshift({ timestamp: Date.now(), autor, formula, detalhe, total, _crit: crit });
+// Núcleo: grava uma rolagem (otimista no feed + Firestore). dados = {autor, formula, detalhe, total, crit, tipo, rotulo}
+function logar(dados) {
+  rolagens.unshift({
+    timestamp: Date.now(), autor: dados.autor, formula: dados.formula, detalhe: dados.detalhe,
+    total: dados.total, _crit: dados.crit || 0, tipo: dados.tipo || 'livre', rotulo: dados.rotulo || ''
+  });
   renderFeed(rolagens);
   if (!DB.configurado()) return;
-  DB.registrarRolagem({ autor: autor, formula: formula, detalhe: detalhe, total: total, crit: crit }).catch(function () {});
+  DB.registrarRolagem({
+    autor: dados.autor, formula: dados.formula, detalhe: dados.detalhe, total: dados.total,
+    crit: dados.crit || 0, tipo: dados.tipo || 'livre', rotulo: dados.rotulo || ''
+  }).catch(function () {});
+}
+
+// Rolagem livre (rolador genérico)
+function registrar(formula, detalhe, total, crit) {
+  const autor = get('r_autor').trim() || Identidade.nome() || 'Anônimo';
+  try { localStorage.setItem('rpg_autor', autor); } catch (e) {}
+  logar({ autor: autor, formula: formula, detalhe: detalhe, total: total, crit: crit, tipo: 'livre', rotulo: '' });
+}
+
+function dataHora(ts) {
+  if (!ts) return '';
+  const d = new Date(ts);
+  const dd = ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2);
+  return dd + ' ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 }
 
 function renderFeed(lista) {
   rolagens = lista;
   const el = document.getElementById('feed-rolagens');
-  if (!lista.length) { el.innerHTML = '<div class="carregando">Sem rolagens ainda.</div>'; return; }
-  el.innerHTML = lista.slice(0, 12).map(r => {
-    const h = r.timestamp ? new Date(r.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '';
+  let h = '';
+  if (Identidade.ehMestre() && lista.length) {
+    h += '<div class="feed-acoes"><button class="btn-limpar" onclick="limparHistorico()">🗑 Limpar histórico</button></div>';
+  }
+  if (!lista.length) {
+    el.innerHTML = h + '<div class="carregando">Sem rolagens ainda.</div>';
+    return;
+  }
+  h += lista.slice(0, 14).map(r => {
     const cls = r._crit === 1 ? ' crit' : (r._crit === -1 ? ' fumble' : '');
+    const rot = r.rotulo ? '<span class="roll-rotulo">' + esc(r.rotulo) + '</span>' : '<span class="roll-f">' + esc(r.formula) + '</span>';
     return '<div class="roll"><div class="roll-tot' + cls + '">' + r.total + '</div>' +
-      '<div class="roll-info"><div><b>' + esc(r.autor) + '</b> <span class="roll-f">' + esc(r.formula) + '</span></div>' +
+      '<div class="roll-info"><div><b>' + esc(r.autor) + '</b> ' + rot + '</div>' +
       '<div class="roll-det">' + esc(r.detalhe) + '</div></div>' +
-      '<div class="roll-h">' + h + '</div></div>';
+      '<div class="roll-h">' + dataHora(r.timestamp) + '</div></div>';
   }).join('');
+  el.innerHTML = h;
+}
+
+function limparHistorico() {
+  if (!Identidade.ehMestre()) return;
+  if (!confirm('Apagar TODO o histórico de rolagens? Isso não dá pra desfazer.')) return;
+  DB.limparRolagens().catch(function (e) { alert('Não foi possível limpar: ' + e.message); });
+}
+
+/* ------------------------ rolagem pela ficha (auto-bônus) ------------------------ */
+function charAtualRoll() {
+  if (Identidade.ehMestre()) return rfCharId || (personagens[0] && personagens[0].id) || null;
+  return Identidade.meuId();
+}
+function rfTrocaChar(id) { rfCharId = id; const el = document.getElementById('rolagem-ficha'); if (el) el.dataset.estado = ''; renderRolagemFicha(); }
+function setVDFicha(btn) { vdFicha = parseInt(btn.dataset.vd, 10); document.querySelectorAll('#rf-vd .vd-btn').forEach(b => b.classList.toggle('ativo', b === btn)); }
+
+function renderRolagemFicha() {
+  const el = document.getElementById('rolagem-ficha');
+  if (!el) return;
+  const mestre = Identidade.ehMestre();
+  const charId = charAtualRoll();
+  const estado = (mestre ? 'M' : '') + (charId || 'x') + ':' + personagens.length + ':' + (Identidade.logado() ? '1' : '0');
+  if (el.dataset.estado === estado) return;
+  el.dataset.estado = estado;
+
+  if (!Identidade.logado()) {
+    el.innerHTML = '<div class="rf-hint">Entre com Google e escolha seu personagem (na barra acima) para rolar com os bônus automáticos — perícias, salvaguardas, ataques, iniciativa.</div>';
+    return;
+  }
+  const p = personagens.find(x => x.id === charId);
+  if (!p) {
+    el.innerHTML = '<div class="rf-hint">' + (mestre ? 'Nenhum personagem na base.' : 'Você ainda não reivindicou um personagem — escolha o seu na barra acima.') + '</div>';
+    return;
+  }
+  const cabecalho = mestre
+    ? '<span class="rf-quem">Rolar por:</span> <select id="rf-char" onchange="rfTrocaChar(this.value)">' +
+        personagens.map(x => '<option value="' + x.id + '"' + (x.id === p.id ? ' selected' : '') + '>' + esc(x.nome) + '</option>').join('') + '</select>'
+    : '<span class="rf-quem">Sua ficha: <b>' + esc(p.nome) + '</b></span>';
+
+  el.innerHTML =
+    '<div class="rf-top">' + cabecalho +
+    '<div class="vd" id="rf-vd">' +
+      '<button class="vd-btn ativo" data-vd="0" onclick="setVDFicha(this)">Normal</button>' +
+      '<button class="vd-btn" data-vd="1" onclick="setVDFicha(this)">Vant.</button>' +
+      '<button class="vd-btn" data-vd="-1" onclick="setVDFicha(this)">Desv.</button></div></div>' +
+    '<div class="rf-linha"><select id="rf-opcao">' + montarOpcoesFicha(p) + '</select>' +
+    '<button class="btn btn-salvar" onclick="rolarFicha()">Rolar</button></div>';
+  vdFicha = 0;
+}
+
+function montarOpcoesFicha(p) {
+  const f = p.ficha || {};
+  let h = '<optgroup label="Combate">';
+  h += '<option value="init:">Iniciativa (' + sinal(p.iniciativa || 0) + ')</option>';
+  (f.ataques || []).forEach((a, i) => { if (a.bonus != null) h += '<option value="atk:' + i + '">Ataque · ' + esc(a.nome) + ' (' + sinal(a.bonus) + ')</option>'; });
+  (f.ataques || []).forEach((a, i) => { if (a.dano) h += '<option value="dano:' + i + '">Dano · ' + esc(a.nome) + ' (' + esc(a.dano) + ')</option>'; });
+  h += '</optgroup><optgroup label="Salvaguardas">';
+  const sv = (f.salvaguardas && f.salvaguardas.bonus) || {};
+  ATRIBOS.forEach(a => h += '<option value="salv:' + a[0] + '">Salv. ' + a[1] + ' (' + sinal(sv[a[0]] || 0) + ')</option>');
+  h += '</optgroup><optgroup label="Testes de Atributo">';
+  ATRIBOS.forEach(a => h += '<option value="atrib:' + a[0] + '">' + a[1] + ' (' + sinal(modAtrib(p[a[0]])) + ')</option>');
+  h += '</optgroup><optgroup label="Perícias">';
+  (f.pericias || []).forEach(pe => h += '<option value="per:' + esc(pe.nome) + '">' + esc(pe.nome) + ' (' + sinal(pe.bonus) + ')</option>');
+  h += '</optgroup>';
+  return h;
+}
+
+// Limpa string de dano (ex.: "1d8+3 (1m) / 1d10+3 (2m)" -> "1d8+3"; "1d8 radiante" -> "1d8")
+function limparDano(s) {
+  return (s || '').split('/')[0].replace(/\([^)]*\)/g, '').toLowerCase().replace(/[^0-9d+\-]/g, '');
+}
+
+function rolarFicha() {
+  const p = personagens.find(x => x.id === charAtualRoll());
+  if (!p) return;
+  const v = document.getElementById('rf-opcao').value;
+  const i = v.indexOf(':'); const tipo = v.slice(0, i); const chave = v.slice(i + 1);
+  const f = p.ficha || {};
+  let bonus = 0, rotulo = '', dano = null;
+  if (tipo === 'init') { bonus = p.iniciativa || 0; rotulo = 'Iniciativa'; }
+  else if (tipo === 'salv') { bonus = ((f.salvaguardas && f.salvaguardas.bonus) || {})[chave] || 0; rotulo = 'Salvaguarda · ' + nomeAtrib(chave); }
+  else if (tipo === 'atrib') { bonus = modAtrib(p[chave]); rotulo = 'Teste · ' + nomeAtrib(chave); }
+  else if (tipo === 'per') { const pe = (f.pericias || []).find(x => x.nome === chave); bonus = pe ? pe.bonus : 0; rotulo = 'Perícia · ' + chave; }
+  else if (tipo === 'atk') { const a = (f.ataques || [])[parseInt(chave, 10)]; bonus = a ? a.bonus : 0; rotulo = 'Ataque · ' + (a ? a.nome : ''); }
+  else if (tipo === 'dano') { const a = (f.ataques || [])[parseInt(chave, 10)]; dano = a ? a.dano : ''; rotulo = 'Dano · ' + (a ? a.nome : ''); }
+
+  if (dano !== null) {
+    const res = parseFormula(limparDano(dano));
+    if (!res) { alert('Não consegui rolar o dano "' + dano + '". Use o modo livre.'); return; }
+    mostrarResultado(res.total, rotulo + ' — ' + res.detalhe, 0);
+    logar({ autor: p.nome, formula: rotulo, detalhe: res.detalhe, total: res.total, crit: 0, tipo: 'dano', rotulo: rotulo });
+    return;
+  }
+  let natural, det;
+  if (vdFicha !== 0) {
+    const a = rolarUm(20), b = rolarUm(20);
+    natural = vdFicha === 1 ? Math.max(a, b) : Math.min(a, b);
+    det = 'd20 [' + a + ',' + b + '] ' + (vdFicha === 1 ? 'vant' : 'desv') + '→' + natural + modTxt(bonus);
+  } else {
+    natural = rolarUm(20);
+    det = 'd20 [' + natural + ']' + modTxt(bonus);
+  }
+  const total = natural + bonus;
+  const crit = natural === 20 ? 1 : (natural === 1 ? -1 : 0);
+  mostrarResultado(total, rotulo + ' — ' + det, crit);
+  logar({ autor: p.nome, formula: rotulo, detalhe: det, total: total, crit: crit, tipo: tipo, rotulo: rotulo });
 }
 
 /* ------------------------------ utils ------------------------------ */

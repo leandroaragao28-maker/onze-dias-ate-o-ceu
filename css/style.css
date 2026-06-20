@@ -130,6 +130,21 @@ h1 {
 .roll-info { flex: 1; font-size: 13px; line-height: 1.4; }
 .roll-f, .roll-det, .roll-h { color: var(--ink-soft); font-size: 11px; }
 .roll-h { white-space: nowrap; }
+.roll-rotulo { color: var(--wine); font-size: 11.5px; font-weight: 700; }
+.feed-acoes { display: flex; justify-content: flex-end; margin-bottom: 6px; }
+.btn-limpar { background: transparent; border: 1px solid var(--wine); color: var(--wine); border-radius: 7px; padding: 5px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.btn-limpar:active { background: rgba(123,30,34,.12); }
+
+/* Rolagem pela ficha */
+#rolagem-ficha { padding: 10px 12px; }
+.rf-hint { color: var(--ink-soft); font-size: 13px; line-height: 1.4; }
+.rf-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 9px; }
+.rf-quem { font-size: 13px; color: var(--ink); }
+#rf-char { flex: 1; min-width: 140px; }
+#rf-vd { margin-left: auto; }
+.rf-linha { display: flex; gap: 8px; }
+#rf-opcao { flex: 1; min-width: 0; }
+.rf-linha .btn { flex: 0 0 92px; }
 
 /* Campos e botões */
 input, select, button { font-family: inherit; }

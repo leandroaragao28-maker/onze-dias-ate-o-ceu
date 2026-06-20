@@ -34,7 +34,7 @@ window.DB = (function () {
         const r = d.data();
         return {
           autor: r.autor, formula: r.formula, detalhe: r.detalhe, total: r.total,
-          _crit: r.crit || 0,
+          _crit: r.crit || 0, tipo: r.tipo || 'livre', rotulo: r.rotulo || '',
           timestamp: r.timestamp && r.timestamp.toMillis ? r.timestamp.toMillis() : Date.now()
         };
       }));
@@ -58,6 +58,14 @@ window.DB = (function () {
   }
   function salvarCombate(obj) {
     return db.collection('estado').doc('combate').set(obj || { ativo: false, round: 0, turno: 0, ordem: [] });
+  }
+  // Apaga TODO o histórico de rolagens (só o mestre passa nas regras).
+  function limparRolagens() {
+    return db.collection('rolagens').get().then(function (snap) {
+      const batch = db.batch();
+      snap.docs.forEach(function (d) { batch.delete(d.ref); });
+      return batch.commit();
+    });
   }
   function salvarPersonagem(p) {
     const dados = Object.assign({}, p); const id = dados.id; delete dados.id;
@@ -84,7 +92,7 @@ window.DB = (function () {
     ouvirPersonagens: ouvirPersonagens, ouvirPersonagem: ouvirPersonagem,
     ouvirRolagens: ouvirRolagens, ouvirCombate: ouvirCombate,
     ajustarPV: ajustarPV, registrarRolagem: registrarRolagem,
-    salvarCombate: salvarCombate, salvarPersonagem: salvarPersonagem,
+    salvarCombate: salvarCombate, salvarPersonagem: salvarPersonagem, limparRolagens: limparRolagens,
     onAuth: onAuth, usuario: usuario, entrar: entrar, sair: sair, reivindicar: reivindicar
   };
 })();
