@@ -5,19 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Onze Dias Até o Céu — Painel da Tripulação</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#0e1b2a">
+  <meta name="theme-color" content="#1c1512">
   <link rel="icon" href="icons/favicon-32.png" sizes="32x32">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Onze Dias">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header>
     <h1>⚓ Onze Dias Até o Céu</h1>
     <div class="sub">Painel da Tripulação — D&D 5e</div>
+    <svg class="ornamento" viewBox="0 0 240 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+      <line x1="14" y1="8" x2="104" y2="8"/><line x1="136" y1="8" x2="226" y2="8"/>
+      <path d="M120 2 L126 8 L120 14 L114 8 Z" fill="currentColor" stroke="none"/>
+      <circle cx="108" cy="8" r="2" fill="currentColor" stroke="none"/><circle cx="132" cy="8" r="2" fill="currentColor" stroke="none"/>
+      <path d="M14 8 q-6 -5 -9 0 q3 3 9 0Z" fill="currentColor" stroke="none"/>
+      <path d="M226 8 q6 -5 9 0 q-3 3 -9 0Z" fill="currentColor" stroke="none"/>
+    </svg>
     <div class="status-bar"><span class="dot" id="dot"></span><span id="status">conectando…</span></div>
   </header>
 
@@ -81,6 +91,7 @@
   <script src="js/config.js"></script>
   <script src="js/db.js"></script>
   <script src="js/identidade.js"></script>
+  <script src="js/brasoes.js"></script>
   <script src="js/app.js"></script>
   <script src="js/pwa.js"></script>
 </body>

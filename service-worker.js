@@ -3,14 +3,15 @@
  * Trocar o VERSION muda este arquivo → o navegador detecta a nova versão
  * e o js/pwa.js mostra o banner "Nova versão disponível".
  */
-const VERSION = 'v5';
+const VERSION = 'v6';
 const CACHE = 'onze-dias-' + VERSION;
 
 // Caminhos relativos ao escopo (/onze-dias-ate-o-ceu/).
 const ASSETS = [
   './', 'index.html', 'ficha.html',
   'css/style.css',
-  'js/config.js', 'js/db.js', 'js/identidade.js', 'js/app.js', 'js/ficha.js', 'js/pwa.js',
+  'js/config.js', 'js/db.js', 'js/identidade.js', 'js/brasoes.js', 'js/app.js', 'js/ficha.js', 'js/pwa.js',
+  'img/couro.jpg', 'img/pergaminho.jpg',
   'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png'
 ];

@@ -64,9 +64,12 @@ function card(p) {
   return `
     <div class="card${ehVoce ? ' meu' : ''}">
       <div class="card-top">
-        <div>
-          <div class="nome"><a href="ficha.html?id=${encodeURIComponent(p.id)}">${esc(p.nome)}</a>${voce}</div>
-          <div class="classe">${esc(p.classe_nivel)} • ${esc(p.raca)}${p.jogador && p.jogador !== '—' ? ' • ' + esc(p.jogador) : ''}</div>
+        <div class="pj-cab">
+          ${Brasoes.avatar(p)}
+          <div>
+            <div class="nome"><a href="ficha.html?id=${encodeURIComponent(p.id)}">${esc(p.nome)}</a>${voce}</div>
+            <div class="classe">${esc(p.classe_nivel)} • ${esc(p.raca)}${p.jogador && p.jogador !== '—' ? ' • ' + esc(p.jogador) : ''}</div>
+          </div>
         </div>
         ${badge}
       </div>

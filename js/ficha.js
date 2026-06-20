@@ -36,7 +36,7 @@ function render(p) {
   let h = '';
 
   // Cabeçalho
-  h += '<header><div class="ficha-h"><h1>' + esc(p.nome) + '</h1></div>' +
+  h += '<header><div class="ficha-h">' + Brasoes.avatar(p, 'grande') + '<h1>' + esc(p.nome) + '</h1></div>' +
     (f.subtitulo ? '<div class="sub">' + esc(f.subtitulo) + '</div>' : '') +
     '<div class="sub">' + esc(p.classe_nivel) + ' • ' + esc(p.raca) + ' • ' + esc(p.tendencia) +
     ' • ' + esc(p.antecedente) + (p.jogador && p.jogador !== '—' ? ' • Jogador: ' + esc(p.jogador) : '') + '</div></header>';
