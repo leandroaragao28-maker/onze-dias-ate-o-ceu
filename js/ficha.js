@@ -12,6 +12,10 @@ function carregarFicha() {
   const id = new URLSearchParams(location.search).get('id');
   if (!DB.configurado()) { alvoEl.innerHTML = '<div class="aviso">Firebase não configurado em <code>js/config.js</code>.</div>'; return; }
   if (!id) { alvoEl.innerHTML = '<div class="aviso">Personagem não informado.</div>'; return; }
+  DB.onAuth(function (u) {                        // login muda quem pode editar
+    Identidade.setUser(u ? { email: u.email, displayName: u.displayName } : null);
+    if (atual) alvoEl.innerHTML = render(atual);
+  });
   DB.ouvirPersonagem(id, function (p) {          // tempo real: PV/dados atualizam sozinhos
     if (!p) { alvoEl.innerHTML = '<div class="aviso">Personagem não encontrado.</div>'; return; }
     atual = p;
@@ -44,7 +48,7 @@ function render(p) {
   // Combate
   const pct = p.pv_max > 0 ? Math.round(p.pv_atual / p.pv_max * 100) : 0;
   const cor = pct <= 25 ? 'var(--red)' : (pct <= 50 ? 'var(--amber)' : 'var(--green)');
-  const pvBtns = Identidade.podeEditar(p.id) ? '<div class="btns">' +
+  const pvBtns = Identidade.podeEditar(p) ? '<div class="btns">' +
     '<button class="btn-pv menos" onclick="ajPV(-5)">−5</button>' +
     '<button class="btn-pv menos" onclick="ajPV(-1)">−1</button>' +
     '<button class="btn-pv mais" onclick="ajPV(1)">+1</button>' +

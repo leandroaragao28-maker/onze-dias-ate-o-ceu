@@ -15,13 +15,24 @@ let online = false;
 
   if (!DB.configurado()) {
     document.getElementById('aviso-config').innerHTML =
-      '<div class="aviso"><b>Firebase não configurado.</b> Verifique <code>js/config.js</code>. ' +
-      'A rolagem de dados funciona offline, mas a tripulação só aparece com o Firebase ativo.</div>';
+      '<div class="aviso"><b>Firebase não configurado.</b> Verifique <code>js/config.js</code>.</div>';
     setStatus(false, 'Firebase não configurado');
     return;
   }
   setStatus(true, 'tempo real');
+
+  DB.onAuth(function (u) {
+    Identidade.setUser(u ? { email: u.email, displayName: u.displayName } : null);
+    if (u) {
+      const a = document.getElementById('r_autor');
+      if (a && !a.value) a.value = u.displayName || u.email;
+    }
+    forcarIdentidade();
+    render(personagens);
+  });
+
   DB.ouvirPersonagens(function (lista) {
+    Identidade.setPersonagens(lista);
     render(lista);
     setStatus(true, 'ao vivo · ' + new Date().toLocaleTimeString('pt-BR'));
   });
@@ -52,7 +63,7 @@ function card(p) {
   const badge = p.status ? '<span class="badge">' + esc(p.status) + '</span>' : '';
   const ini = (p.iniciativa >= 0 ? '+' : '') + p.iniciativa;
   const ehVoce = Identidade.meuId() === p.id;
-  const editavel = Identidade.podeEditar(p.id);
+  const editavel = Identidade.podeEditar(p);
   const voce = ehVoce ? ' <span class="badge voce">VOCÊ</span>' : '';
   const botoes = editavel ? `
       <div class="btns">
@@ -87,59 +98,59 @@ function card(p) {
     </div>`;
 }
 
-/* --------------------------- identidade (quem é você) --------------------------- */
+/* --------------------------- identidade (login Google) --------------------------- */
 function renderIdentidade() {
   const el = document.getElementById('identidade');
   if (!el) return;
-  const meu = Identidade.meuId();
+  const logado = Identidade.logado();
   const mestre = Identidade.ehMestre();
-  const estado = (mestre ? 'M:' : '') + (meu || 'novo') + ':' + personagens.length;
-  if (el.dataset.estado === estado) return; // evita reconstruir a cada poll
+  const meu = Identidade.meuId();
+  const estado = logado ? ((mestre ? 'M:' : '') + (meu || 'sem')) : 'fora';
+  if (el.dataset.estado === estado) return;
   el.dataset.estado = estado;
 
-  if (!meu && !mestre) {
-    const opts = personagens.map(p => `<option value="${p.id}">${esc(p.nome)}</option>`).join('');
+  if (!logado) {
     el.innerHTML =
-      '<div class="id-linha"><span class="id-q">Quem é você?</span>' +
-      '<select id="id-sel">' + opts + '</select>' +
-      '<button class="btn-id" onclick="confirmarEu()">Sou eu</button></div>' +
-      '<div class="id-extra"><a href="javascript:void(0)" onclick="entrarMestre()">Sou o mestre</a></div>';
+      '<div class="id-linha"><span class="id-q">Entre para editar a sua ficha</span>' +
+      '<button class="btn-id" onclick="entrarGoogle()">Entrar com Google</button></div>';
+    return;
+  }
+  if (mestre) {
+    el.innerHTML =
+      '<div class="id-linha"><span class="id-q">⚔ <b>Mestre</b> — você edita todas as fichas ' +
+      '<span class="id-mail">' + esc(Identidade.email()) + '</span></span>' +
+      '<button class="btn-id sec" onclick="sairGoogle()">Sair</button></div>';
+    return;
+  }
+  const p = Identidade.meuPersonagem();
+  if (p) {
+    el.innerHTML =
+      '<div class="id-linha"><span class="id-q">Você é <b>' + esc(p.nome) + '</b> ' +
+      '<span class="id-mail">' + esc(Identidade.email()) + '</span></span>' +
+      '<button class="btn-id sec" onclick="sairGoogle()">Sair</button></div>';
   } else {
-    const p = personagens.find(x => x.id === meu);
-    const quem = mestre ? '⚔ <b>Mestre</b> — você edita todas as fichas'
-                        : ('Você é <b>' + esc(p ? p.nome : '—') + '</b>');
+    const livres = personagens.filter(x => !x.owner_email);
+    const opts = livres.map(x => '<option value="' + x.id + '">' + esc(x.nome) + '</option>').join('');
     el.innerHTML =
-      '<div class="id-linha"><span class="id-q">' + quem + '</span>' +
-      '<button class="btn-id sec" onclick="trocarEu()">Trocar</button>' +
-      (mestre ? '<button class="btn-id sec" onclick="sairMestre()">Sair</button>'
-              : '<a class="id-link" href="javascript:void(0)" onclick="entrarMestre()">Sou o mestre</a>') +
-      '</div>';
+      '<div class="id-linha"><span class="id-q">Logado como ' + esc(Identidade.email()) + '. Qual é o seu personagem?</span></div>' +
+      '<div class="id-linha"><select id="id-sel">' + (opts || '<option value="">— nenhuma ficha livre —</option>') + '</select>' +
+      '<button class="btn-id" onclick="reivindicarFicha()">É meu</button>' +
+      '<button class="btn-id sec" onclick="sairGoogle()">Sair</button></div>';
   }
 }
 
-function confirmarEu() {
+function entrarGoogle() { DB.entrar().catch(e => alert('Falha no login: ' + e.message)); }
+function sairGoogle() { DB.sair(); }
+function reivindicarFicha() {
   const sel = document.getElementById('id-sel');
-  if (!sel) return;
-  const p = personagens.find(x => x.id === sel.value);
-  Identidade.setMeu(sel.value, p ? (p.jogador && p.jogador !== '—' ? p.jogador : p.nome) : '');
-  const a = document.getElementById('r_autor');
-  if (a && !a.value) a.value = Identidade.nome();
-  recriarIdentidade();
+  if (!sel || !sel.value) return;
+  DB.reivindicar(sel.value, Identidade.email()).catch(e => alert('Não foi possível reivindicar: ' + e.message));
 }
-function trocarEu() { Identidade.limpar(); recriarIdentidade(); }
-function entrarMestre() {
-  const c = prompt('Chave do mestre:');
-  if (c == null) return;
-  if (Identidade.entrarMestre(c.trim())) recriarIdentidade();
-  else alert('Chave incorreta.');
-}
-function sairMestre() { Identidade.sairMestre(); recriarIdentidade(); }
-function recriarIdentidade() {
+function forcarIdentidade() {
   const el = document.getElementById('identidade');
   if (el) el.dataset.estado = '';
   renderIdentidade();
-  render(personagens);
-  combateStr = ''; renderCombate(); // controles do mestre aparecem/somem na hora
+  combateStr = ''; renderCombate();
 }
 
 /* ------------------------------ combate / iniciativa ------------------------------ */

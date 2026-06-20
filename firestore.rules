@@ -1,11 +1,29 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Modelo "social" (entre amigos): leitura e escrita abertas, igual ao que já era.
-    // Para travar de verdade (cada um só edita a própria ficha), exigir request.auth
-    // com login do Firebase Authentication no futuro.
-    match /{document=**} {
-      allow read, write: if true;
+    function logado() { return request.auth != null; }
+    function emailUser() { return request.auth.token.email; }
+    // Mestre(s): editam tudo. Mantenha igual a CONFIG.MESTRE_EMAILS no front.
+    function mestre() { return logado() && emailUser() == 'leandroaragao28@gmail.com'; }
+    function semDono() { return !('owner_email' in resource.data) || resource.data.owner_email == ''; }
+
+    match /personagens/{id} {
+      allow read: if true;                          // todos veem o painel (leitura aberta)
+      allow create, delete: if mestre();
+      allow update: if mestre()
+        || (logado() && resource.data.owner_email == emailUser())                  // dono edita a sua ficha
+        || (logado() && semDono() && request.resource.data.owner_email == emailUser()); // reivindicar ficha sem dono
+    }
+
+    match /rolagens/{id} {
+      allow read: if true;
+      allow create: if true;                        // qualquer um pode rolar (não é sensível)
+      allow update, delete: if mestre();
+    }
+
+    match /estado/{id} {
+      allow read: if true;
+      allow write: if mestre();                     // só o mestre controla o combate
     }
   }
 }

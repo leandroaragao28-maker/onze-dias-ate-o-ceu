@@ -225,7 +225,8 @@
       },
       "historia": [],
       "anotacoes": "Cota de Malha exige Força 13 (você atende). Impõe desvantagem em Furtividade.\nNo turno: Mover → Agir → Ação Bônus → Reação."
-    }
+    },
+    "owner_email": "leandroaragao28@gmail.com"
   },
   {
     "id": "vorn",
@@ -461,7 +462,8 @@
       },
       "historia": [],
       "anotacoes": "Frases: \"Começa.\" · \"Eu aviso uma vez.\" · \"Deixa o machado resolver.\"\nSem armadura — checar CA se equipar escudo (+2)."
-    }
+    },
+    "owner_email": ""
   },
   {
     "id": "raelag",
@@ -724,7 +726,8 @@
         }
       ],
       "anotacoes": "Cota de Malha impõe desvantagem em Furtividade. CA 19 = 16 + escudo (+2) + Defesa (+1). Sabedoria Passiva (Percepção) 13."
-    }
+    },
+    "owner_email": ""
   },
   {
     "id": "dorin",
@@ -1021,6 +1024,7 @@
       },
       "historia": [],
       "anotacoes": "CA 18 = Cota de Malha (16) + Escudo (+2). Robustez Anã: +1 PV/nível (incluído). Resiliência Anã: vantagem vs veneno."
-    }
+    },
+    "owner_email": ""
   }
 ]

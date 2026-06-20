@@ -1,5 +1,5 @@
 // config.js — configuração do Firebase (gerada pelo Firebase CLI).
-// A apiKey aqui é pública por design; a segurança fica nas REGRAS do Firestore.
+// A apiKey aqui é pública por design; a segurança fica nas REGRAS do Firestore + login.
 window.CONFIG = {
   firebase: {
     apiKey: "AIzaSyCvDK1OWoC7nB8j9KDi1axkJ5lgqHDacn4",
@@ -9,5 +9,6 @@ window.CONFIG = {
     messagingSenderId: "664538033951",
     appId: "1:664538033951:web:1b6f91a8d3803b13760a2a"
   },
-  MESTRE_KEY: 'mestre-onze' // chave do mestre para liberar a edição de todas as fichas
+  // E-mails do(s) mestre(s): editam TODAS as fichas. (Também travado nas regras do Firestore.)
+  MESTRE_EMAILS: ['leandroaragao28@gmail.com']
 };

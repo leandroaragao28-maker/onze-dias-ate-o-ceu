@@ -1,26 +1,32 @@
-// identidade.js — modelo "reivindicar personagem" (sem login, segurança social).
-// "Quem é você" fica salvo só neste aparelho (localStorage). O mestre tem uma chave
-// que libera a edição de todos. A API continua aberta; o controle é na interface.
+// identidade.js — identidade pelo login (Firebase Auth) + dono da ficha (owner_email).
+// O vínculo é real: cada personagem tem um owner_email; o mestre é definido por e-mail.
 window.Identidade = (function () {
-  const K_ID = 'rpg_meu_personagem';
-  const K_NOME = 'rpg_autor';        // mesmo nome usado pelo rolador de dados
-  const K_MESTRE = 'rpg_mestre';
+  let user = null;          // { email, displayName } ou null
+  let personagens = [];     // referência à lista atual (para achar o seu personagem)
 
-  function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-  function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
-  function del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+  function setUser(u) { user = u; }
+  function setPersonagens(lista) { personagens = lista || []; }
+
+  function logado() { return !!user; }
+  function email() { return user ? user.email : null; }
+  function nome() { return user ? (user.displayName || user.email) : ''; }
+  function ehMestre() {
+    return !!user && (CONFIG.MESTRE_EMAILS || []).indexOf(user.email) >= 0;
+  }
+  function meuPersonagem() {
+    if (!user) return null;
+    return personagens.find(function (p) { return p.owner_email && p.owner_email === user.email; }) || null;
+  }
+  function meuId() { const p = meuPersonagem(); return p ? p.id : null; }
+  // Pode editar a ficha p? Mestre edita todas; jogador edita só a sua.
+  function podeEditar(p) {
+    if (!user || !p) return false;
+    return ehMestre() || p.owner_email === user.email;
+  }
 
   return {
-    meuId() { return get(K_ID); },
-    nome() { return get(K_NOME) || ''; },
-    setMeu(id, nome) { if (id) set(K_ID, id); else del(K_ID); if (nome) set(K_NOME, nome); },
-    limpar() { del(K_ID); },
-    ehMestre() { return get(K_MESTRE) === '1'; },
-    entrarMestre(chave) {
-      if (chave && window.CONFIG && chave === CONFIG.MESTRE_KEY) { set(K_MESTRE, '1'); return true; }
-      return false;
-    },
-    sairMestre() { del(K_MESTRE); },
-    podeEditar(id) { return this.ehMestre() || this.meuId() === id; }
+    setUser: setUser, setPersonagens: setPersonagens,
+    logado: logado, email: email, nome: nome, ehMestre: ehMestre,
+    meuPersonagem: meuPersonagem, meuId: meuId, podeEditar: podeEditar
   };
 })();

@@ -1,12 +1,13 @@
 // db.js — camada de dados em TEMPO REAL com Firestore (substitui api.js + polling).
 // Usa o SDK compat (carregado por <script> no HTML), expondo o global `firebase`.
 window.DB = (function () {
-  let db = null, pronto = false;
+  let db = null, auth = null, pronto = false;
 
   (function init() {
     if (!window.firebase || !window.CONFIG || !CONFIG.firebase || !CONFIG.firebase.apiKey) return;
     firebase.initializeApp(CONFIG.firebase);
     db = firebase.firestore();
+    auth = firebase.auth();
     pronto = true;
   })();
 
@@ -63,11 +64,25 @@ window.DB = (function () {
     return db.collection('personagens').doc(id).set(dados, { merge: true });
   }
 
+  // ----- Autenticação (Firebase Auth + Google) -----
+  function onAuth(cb) { if (auth) auth.onAuthStateChanged(cb); }
+  function usuario() { return auth ? auth.currentUser : null; }
+  function entrar() {
+    const prov = new firebase.auth.GoogleAuthProvider();
+    return auth.signInWithRedirect(prov); // redirect = mais confiável no celular
+  }
+  function sair() { return auth.signOut(); }
+  // Amarra a ficha à conta logada (só funciona se a ficha estiver sem dono, pelas regras).
+  function reivindicar(id, emailDono) {
+    return db.collection('personagens').doc(id).update({ owner_email: emailDono });
+  }
+
   return {
     configurado: configurado,
     ouvirPersonagens: ouvirPersonagens, ouvirPersonagem: ouvirPersonagem,
     ouvirRolagens: ouvirRolagens, ouvirCombate: ouvirCombate,
     ajustarPV: ajustarPV, registrarRolagem: registrarRolagem,
-    salvarCombate: salvarCombate, salvarPersonagem: salvarPersonagem
+    salvarCombate: salvarCombate, salvarPersonagem: salvarPersonagem,
+    onAuth: onAuth, usuario: usuario, entrar: entrar, sair: sair, reivindicar: reivindicar
   };
 })();

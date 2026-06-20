@@ -189,6 +189,7 @@ input, select { background: var(--parch2); border: 1px solid var(--edge); color:
 .btn-id.sec { background: var(--parch2); color: var(--ink); border: 1px solid var(--edge); }
 .id-link, .id-extra a { color: var(--ink-soft); font-size: 12px; text-decoration: underline; cursor: pointer; }
 .id-extra { margin-top: 6px; }
+.id-mail { color: var(--ink-soft); font-size: 11px; white-space: nowrap; }
 .card.meu { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold) inset, 0 2px 6px rgba(0,0,0,.45); }
 
 /* Iniciativa / combate */
