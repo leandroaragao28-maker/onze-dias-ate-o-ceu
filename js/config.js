@@ -3,7 +3,7 @@
 window.CONFIG = {
   firebase: {
     apiKey: "AIzaSyCvDK1OWoC7nB8j9KDi1axkJ5lgqHDacn4",
-    authDomain: "onze-dias-ate-o-ceu.firebaseapp.com",
+    authDomain: "onze-dias-ate-o-ceu.web.app", // mesmo domínio do app: evita partição de storage no login
     projectId: "onze-dias-ate-o-ceu",
     storageBucket: "onze-dias-ate-o-ceu.firebasestorage.app",
     messagingSenderId: "664538033951",

@@ -139,7 +139,7 @@ function renderIdentidade() {
   }
 }
 
-function entrarGoogle() { DB.entrar().catch(e => alert('Falha no login: ' + e.message)); }
+function entrarGoogle() { DB.entrar().catch(e => alert('Falha no login: [' + (e.code || '?') + '] ' + e.message)); }
 function sairGoogle() { DB.sair(); }
 function reivindicarFicha() {
   const sel = document.getElementById('id-sel');
