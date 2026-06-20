@@ -15,6 +15,8 @@
             if (nw.state === 'installed' && navigator.serviceWorker.controller) mostrarUpdate(reg);
           });
         });
+        // Checa sozinho a cada 60s: o banner aparece por conta própria, sem hard refresh.
+        setInterval(function () { reg.update().catch(function () {}); }, 60000);
       }).catch(function () {});
 
       // Reverifica atualização ao reabrir/voltar ao app.
