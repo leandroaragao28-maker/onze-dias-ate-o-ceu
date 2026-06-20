@@ -3,7 +3,7 @@
  * Trocar o VERSION muda este arquivo → o navegador detecta a nova versão
  * e o js/pwa.js mostra o banner "Nova versão disponível".
  */
-const VERSION = 'v14';
+const VERSION = 'v15';
 const CACHE = 'onze-dias-' + VERSION;
 
 // Caminhos relativos ao escopo (raiz do site).
@@ -31,6 +31,7 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('message', (e) => {
   if (e.data && e.data.type === 'SKIP_WAITING') self.skipWaiting();
+  if (e.data && e.data.type === 'GET_VERSION' && e.ports && e.ports[0]) e.ports[0].postMessage(VERSION);
 });
 
 self.addEventListener('fetch', (e) => {

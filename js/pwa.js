@@ -32,7 +32,28 @@
         recarregando = true;
         location.reload();
       });
+
+      mostrarVersao();
     });
+  }
+
+  // Mostra no rodapé a versão que o Service Worker está realmente servindo. Tocar = checar atualização.
+  function mostrarVersao() {
+    var el = document.getElementById('versao');
+    if (!el) return;
+    function consultar() {
+      var ctrl = navigator.serviceWorker.controller;
+      if (!ctrl) { el.textContent = 'versão —'; return; }
+      var mc = new MessageChannel();
+      mc.port1.onmessage = function (e) { el.textContent = 'versão ' + e.data + ' · toque para checar'; };
+      try { ctrl.postMessage({ type: 'GET_VERSION' }, [mc.port2]); } catch (err) {}
+    }
+    el.onclick = function () {
+      el.textContent = 'checando…';
+      navigator.serviceWorker.getRegistration().then(function (r) { if (r) r.update(); });
+      setTimeout(consultar, 2500);
+    };
+    navigator.serviceWorker.ready.then(consultar);
   }
 
   function mostrarUpdate(reg) {
