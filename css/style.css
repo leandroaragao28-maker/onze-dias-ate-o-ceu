@@ -285,6 +285,7 @@ body.pagina-ficha { max-width: 1040px; }
 .texto-of { font-size: 13px; color: var(--ink); line-height: 1.5; }
 .grupo-magia { font-family: "Cinzel", Georgia, serif; color: var(--wine); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; margin: 10px 0 4px; }
 
-/* Rodapé com a versão (toque para checar atualização) */
-.rodape { text-align: center; color: var(--cream-dim); font-size: 11px; letter-spacing: .3px; margin: 16px 0 30px; cursor: pointer; user-select: none; }
-.rodape:empty { display: none; }
+/* Tag de versão (toque para checar atualização) */
+.versao-tag { display: block; text-align: center; color: var(--cream-dim); font-size: 11px; letter-spacing: .3px; margin-top: 5px; cursor: pointer; user-select: none; }
+.versao-tag:active { color: var(--gold-soft); }
+.versao-inline { display: inline-block; margin: 0 0 0 10px; }
