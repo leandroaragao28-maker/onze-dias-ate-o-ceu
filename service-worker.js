@@ -3,22 +3,29 @@
  * Trocar o VERSION muda este arquivo → o navegador detecta a nova versão
  * e o js/pwa.js mostra o banner "Nova versão disponível".
  */
-const VERSION = 'v18';
+const VERSION = 'v31';
 const CACHE = 'onze-dias-' + VERSION;
 
 // Caminhos relativos ao escopo (raiz do site).
 const ASSETS = [
   './', 'index.html', 'ficha.html',
   'css/style.css',
-  'js/config.js', 'js/db.js', 'js/identidade.js', 'js/brasoes.js', 'js/app.js', 'js/ficha.js', 'js/pwa.js',
+  'js/config.js', 'js/db.js', 'js/identidade.js', 'js/brasoes.js', 'js/navbar.js', 'js/app.js', 'js/ficha.js', 'js/pwa.js',
   'img/couro.jpg', 'img/pergaminho.jpg',
   'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png'
 ];
 
 self.addEventListener('install', (e) => {
-  // Não chama skipWaiting: o SW novo fica "esperando" até o jogador tocar em Atualizar.
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)));
+  // Pré-cache com {cache:'reload'} para IGNORAR o HTTP cache do navegador (max-age) e nunca
+  // gravar uma versão velha de app.js/index.html. Corrige o "cache preso" (versão nova do SW
+  // mostrando código antigo). skipWaiting/reload fica a cargo do js/pwa.js.
+  e.waitUntil((async () => {
+    const cache = await caches.open(CACHE);
+    await Promise.all(ASSETS.map(async (a) => {
+      try { const res = await fetch(a, { cache: 'reload' }); if (res.ok) await cache.put(a, res); } catch (err) {}
+    }));
+  })());
 });
 
 self.addEventListener('activate', (e) => {
