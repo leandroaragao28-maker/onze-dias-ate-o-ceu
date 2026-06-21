@@ -98,52 +98,69 @@ h1 {
 .stats { display: flex; gap: 14px; margin-top: 10px; font-size: 12px; color: var(--ink-soft); flex-wrap: wrap; }
 .stats b { color: var(--ink); font-size: 15px; display: block; font-family: "Cinzel", Georgia, serif; }
 
-/* Rolador de dados */
-.rolador-topo { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-#r_autor { flex: 1; min-width: 140px; }
+/* ===================== Rolador de dados (redesign) ===================== */
+/* Barra "Rolar por" (fora do card) */
+.roll-ctx { display: flex; align-items: center; gap: 10px; background: var(--leather) url("../img/couro.jpg") center/cover; border: 1px solid var(--gold); border-radius: 12px; padding: 9px 12px; margin-bottom: 10px; }
+.roll-ctx-l { color: var(--gold-soft); font-size: 13px; white-space: nowrap; }
+.roll-ctx-sel, .roll-ctx-input { flex: 1; min-width: 0; background: var(--parch); border: 1px solid var(--gold); color: var(--ink); border-radius: 8px; padding: 9px 11px; font-size: 14px; }
+.roll-ctx-nome { flex: 1; font-family: "Cinzel", Georgia, serif; font-weight: 700; color: var(--gold-soft); font-size: 15px; }
+
+.rr-card { padding: 14px 12px; }
+.dia { display: inline-block; width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); margin: 0 8px; vertical-align: middle; }
+.rr-lbl { font-family: "Cinzel", Georgia, serif; text-align: center; letter-spacing: 1.5px; text-transform: uppercase; font-size: 12px; color: var(--ink-soft); margin: 14px 0 9px; }
+
+/* Normal / Vantagem / Desvantagem (reusa .vd-btn, que o Pedido também usa) */
 .vd { display: flex; gap: 4px; }
 .vd-btn { background: var(--parch2); border: 1px solid var(--edge); color: var(--ink-soft); border-radius: 7px; padding: 8px 10px; font-size: 12px; cursor: pointer; }
 .vd-btn.ativo { color: var(--wine); border-color: var(--gold); background: #e3d4b3; font-weight: 700; }
-.resultado { font-family: "Cinzel", Georgia, serif; text-align: center; font-size: 46px; font-weight: 700; color: var(--wine); line-height: 1.1; }
+.rr-seg { display: flex; background: var(--parch2); border: 1px solid var(--edge); border-radius: 10px; padding: 4px; gap: 4px; }
+.rr-seg .vd-btn { flex: 1; text-align: center; background: transparent; border: 1px solid transparent; color: var(--ink-soft); padding: 9px 2px; font-size: 13px; }
+.rr-seg .vd-btn.ativo { background: var(--wine); color: var(--cream); border-color: var(--gold); font-weight: 700; }
+
+.rr-fichasel { width: 100%; }
+
+.rr-res { display: flex; align-items: center; gap: 12px; justify-content: center; }
+.rr-res .rr-ln { flex: 1; height: 1px; background: var(--line); max-width: 90px; }
+.resultado { font-family: "Cinzel", Georgia, serif; text-align: center; font-size: 52px; font-weight: 700; color: var(--wine); line-height: 1.05; }
 .resultado.crit { color: var(--green); } .resultado.fumble { color: var(--red); }
-.resultado-det { text-align: center; color: var(--ink-soft); font-size: 12px; min-height: 16px; margin: 2px 0 12px; }
-.dados { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-.dado { font-family: "Cinzel", Georgia, serif; background: var(--parch2); border: 1px solid var(--edge); color: var(--ink); border-radius: 7px; padding: 12px 0; font-size: 15px; font-weight: 700; cursor: pointer; }
-.dado:active { background: var(--gold); }
-.mod-linha { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
-.mod-linha span { color: var(--ink-soft); font-size: 12px; flex: 1; }
-.mod-linha input { width: 70px; text-align: center; }
-.mod-linha .btn-pv { flex: 0 0 46px; }
-.formula-linha { display: flex; gap: 8px; margin-top: 8px; }
+.resultado-det { text-align: center; color: var(--ink-soft); font-size: 12px; min-height: 16px; margin: 4px 0 0; }
+
+/* Faixa de dados em linha única */
+.dado-strip { display: flex; align-items: center; gap: 4px; }
+.dado-chev { width: 16px; height: 16px; flex: none; fill: none; stroke: var(--gold); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .65; }
+.dado-row { display: flex; gap: 4px; flex: 1; }
+.dado2 { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; background: var(--parch2); border: 1px solid var(--edge); color: var(--ink-soft); border-radius: 8px; padding: 7px 1px 5px; font-family: "Cinzel", Georgia, serif; font-size: 11px; cursor: pointer; }
+.dado2.ativo { border: 2px solid var(--wine); background: #ecdcb4; color: var(--wine); }
+.rr-die { width: 23px; height: 23px; fill: none; stroke: var(--gold); stroke-width: 1.4; stroke-linejoin: round; }
+.rr-die .dot { fill: var(--gold); stroke: none; }
+.dado2.ativo .rr-die { stroke: var(--wine); }
+
+.mod-linha { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 8px; }
+.mod-linha .btn-pv { padding: 11px; font-size: 18px; }
+.mod-linha input { width: 100%; text-align: center; font-family: "Cinzel", Georgia, serif; font-size: 18px; }
+.formula-linha { display: flex; }
 .formula-linha input { flex: 1; }
-.formula-linha .btn { flex: 0 0 92px; }
+
+.rr-rolar { width: 100%; margin-top: 16px; background: var(--wine); color: var(--gold-soft); border: 1px solid var(--gold); border-radius: 12px; padding: 14px; font-family: "Cinzel", Georgia, serif; font-size: 18px; font-weight: 700; letter-spacing: 2px; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(176,141,62,.3); }
+.rr-rolar:active { background: var(--wine-deep); }
 
 /* Feed de rolagens */
-.roll {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--parch) url("../img/pergaminho.jpg") center/cover;
-  color: var(--ink); border: 1px solid var(--edge); border-radius: 8px; padding: 8px 10px; margin-bottom: 6px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.35);
-}
-.roll-tot { font-family: "Cinzel", Georgia, serif; font-size: 22px; font-weight: 700; color: var(--wine); min-width: 42px; text-align: center; }
-.roll-tot.crit { color: var(--green); } .roll-tot.fumble { color: var(--red); }
-.roll-info { flex: 1; font-size: 13px; line-height: 1.4; }
-.roll-f, .roll-det, .roll-h { color: var(--ink-soft); font-size: 11px; }
-.roll-h { white-space: nowrap; }
-.roll-rotulo { color: var(--wine); font-size: 11.5px; font-weight: 700; }
+.roll2 { display: flex; align-items: center; gap: 10px; background: var(--parch) url("../img/pergaminho.jpg") center/cover; color: var(--ink); border: 1px solid var(--gold); border-radius: 10px; padding: 8px 11px; margin-bottom: 7px; box-shadow: 0 1px 4px rgba(0,0,0,.35); }
+.roll2-die { flex: none; display: flex; }
+.roll2-die .rr-die { width: 26px; height: 26px; }
+.roll2-num { font-family: "Cinzel", Georgia, serif; font-size: 22px; font-weight: 700; color: var(--wine); min-width: 30px; text-align: center; flex: none; }
+.roll2-num.crit { color: var(--green); } .roll2-num.fumble { color: var(--red); }
+.roll2-mid { flex: 1; min-width: 0; }
+.roll2-top { font-size: 14px; color: var(--ink); }
+.roll2-badge { display: inline-block; background: var(--parch2); border: 1px solid var(--gold); border-radius: 6px; color: var(--wine); font-size: 11px; font-weight: 700; padding: 1px 7px; margin-left: 6px; vertical-align: 1px; }
+.roll2-det { color: var(--ink-soft); font-size: 11.5px; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.roll2-h { color: var(--ink-soft); font-size: 11px; white-space: nowrap; flex: none; }
 .feed-acoes { display: flex; justify-content: flex-end; margin-bottom: 6px; }
 .btn-limpar { background: transparent; border: 1px solid var(--wine); color: var(--wine); border-radius: 7px; padding: 5px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
 .btn-limpar:active { background: rgba(123,30,34,.12); }
 
-/* Rolagem pela ficha */
-#rolagem-ficha { padding: 10px 12px; }
-.rf-hint { color: var(--ink-soft); font-size: 13px; line-height: 1.4; }
-.rf-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 9px; }
-.rf-quem { font-size: 13px; color: var(--ink); }
-#rf-char { flex: 1; min-width: 140px; }
-#rf-vd { margin-left: auto; }
+/* Linha do form de pedido do mestre */
 .rf-linha { display: flex; gap: 8px; }
-#rf-opcao { flex: 1; min-width: 0; }
 .rf-linha .btn { flex: 0 0 92px; }
 
 /* Campos e botões */
@@ -207,6 +224,82 @@ input, select { background: var(--parch2); border: 1px solid var(--edge); color:
 .id-mail { color: var(--ink-soft); font-size: 11px; white-space: nowrap; }
 .card.meu { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold) inset, 0 2px 6px rgba(0,0,0,.45); }
 
+/* Tela inicial: escolha de papel (gate) */
+.gate {
+  position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center;
+  padding: 20px; overflow-y: auto;
+  background: var(--page) url("../img/couro.jpg") center/cover fixed;
+}
+.gate[hidden] { display: none; }
+body.gate-aberto { overflow: hidden; }
+.gate-card {
+  width: 100%; max-width: 420px; text-align: center;
+  background: var(--leather) url("../img/couro.jpg") center/cover;
+  border: 1px solid var(--gold); border-radius: 14px; padding: 26px 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.6), inset 0 0 0 1px rgba(176,141,62,.25);
+}
+.gate-emblema { font-size: 34px; color: var(--gold-soft); line-height: 1; }
+.gate-titulo { font-family: "Cinzel", Georgia, serif; color: var(--gold-soft); font-size: 22px; margin: 8px 0 2px; letter-spacing: 1px; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+.gate-sub { color: var(--cream-dim); font-size: 13px; margin: 0 0 18px; }
+.gate-opt {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; cursor: pointer;
+  background: var(--parch) url("../img/pergaminho.jpg") center/cover; color: var(--ink);
+  border: 1px solid var(--edge); border-radius: 10px; padding: 13px 14px; margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,250,235,.25);
+}
+.gate-opt:active { transform: translateY(1px); }
+.gate-ic { font-size: 22px; width: 34px; text-align: center; color: var(--wine); flex: 0 0 34px; }
+.gate-txt { display: flex; flex-direction: column; min-width: 0; }
+.gate-t { font-family: "Cinzel", Georgia, serif; font-weight: 700; font-size: 15px; color: var(--ink); }
+.gate-s { font-size: 12px; color: var(--ink-soft); margin-top: 1px; }
+.gate-msg { color: var(--cream); font-size: 12.5px; line-height: 1.35; margin-top: 4px; min-height: 16px; }
+.gate-msg b { color: var(--gold-soft); }
+.gate-foot { color: var(--cream-dim); font-size: 11.5px; margin-top: 12px; }
+.gate-foot b { color: var(--cream); }
+.gate-link { background: transparent; border: none; color: var(--gold-soft); font: inherit; font-size: 11.5px; text-decoration: underline; cursor: pointer; padding: 0; }
+
+/* Tela de escolha de personagem (reusa .gate / .gate-opt) */
+body.escolha-aberta { overflow: hidden; }
+#escolha .gate-opt { gap: 12px; }
+.esc-vazio { color: var(--cream-dim); font-size: 13px; line-height: 1.45; padding: 6px 4px 2px; }
+.esc-ocup-tit { color: var(--gold-soft); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; margin: 14px 0 8px; }
+.gate-opt.esc-ocupada { opacity: .5; cursor: default; }
+.gate-opt.esc-ocupada:active { transform: none; }
+
+/* Navbar inferior (abas por papel) */
+.navbar {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: 0;
+  width: 100%; max-width: 720px; z-index: 900; display: flex; gap: 2px;
+  padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px));
+  background: var(--leather) url("../img/couro.jpg") center/cover;
+  border-top: 1px solid var(--gold); box-shadow: 0 -4px 16px rgba(0,0,0,.5);
+}
+.navbar[hidden] { display: none; }
+.nav-item {
+  flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: transparent; border: none; cursor: pointer; position: relative;
+  color: var(--cream-dim); font-family: inherit; font-size: 11px; padding: 7px 1px; border-radius: 10px;
+}
+.nav-item svg { width: 22px; height: 22px; display: block; }
+.nav-item.ativo { background: var(--wine); color: var(--cream); }
+.nav-item.ativo svg { color: var(--gold-soft); }
+.nav-dot { position: absolute; top: 3px; right: calc(50% - 18px); width: 9px; height: 9px; border-radius: 50%; background: #c0392f; border: 1px solid var(--leather); }
+body.com-nav { padding-bottom: 80px; }
+.ped-vazio { color: var(--ink-soft); font-size: 13px; padding: 4px 2px; }
+
+/* Administração (vínculos personagem ↔ e-mail — só mestre) */
+#admin { padding: 12px; }
+.adm-hint { color: var(--ink-soft); font-size: 12.5px; line-height: 1.45; margin-bottom: 10px; }
+.adm-row { padding: 9px 0; border-bottom: 1px solid var(--line); }
+.adm-row:last-child { border-bottom: none; }
+.adm-nome { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.adm-sub { font-weight: 400; font-size: 12px; color: var(--ink-soft); }
+.adm-dono { color: var(--wine); font-weight: 700; }
+.adm-dono.adm-livre { color: var(--ink-soft); font-weight: 400; font-style: italic; }
+.adm-ctrl { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.adm-input { flex: 1 1 180px; min-width: 0; }
+.adm-ctrl .btn-id { flex: 0 0 auto; }
+
 /* Iniciativa / combate */
 #iniciativa { padding: 10px 12px; }
 .comb-vazio { color: var(--ink-soft); font-size: 13px; padding: 4px 0; }
@@ -221,6 +314,32 @@ input, select { background: var(--parch2); border: 1px solid var(--edge); color:
 .comb-x { background: transparent; border: none; color: var(--ink-soft); cursor: pointer; font-size: 13px; padding: 2px 4px; }
 .comb-acoes { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
 .comb-acoes .btn-id { flex: 1; min-width: 110px; }
+
+/* Pedido de rolagem do mestre (Fase C) */
+#pedido { padding: 10px 12px; border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset, 0 2px 6px rgba(0,0,0,.45); }
+.ped-cab { font-family: "Cinzel", Georgia, serif; font-size: 14px; color: var(--ink); margin-bottom: 9px; line-height: 1.35; }
+.ped-cab b { color: var(--wine); }
+.ped-cd-tag { display: inline-block; background: var(--wine); color: var(--cream); border-radius: 6px; padding: 1px 8px; font-size: 12px; font-weight: 700; margin-left: 4px; vertical-align: 1px; }
+#ped-opcao { flex: 1; min-width: 0; }
+.ped-linha2 { display: flex; align-items: center; gap: 14px; margin-top: 9px; flex-wrap: wrap; }
+.ped-cd { font-size: 13px; color: var(--ink); display: flex; align-items: center; gap: 6px; }
+.ped-cd input { width: 72px; }
+.ped-alvos { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 9px; }
+.ped-alvo { font-size: 13px; color: var(--ink); display: flex; align-items: center; gap: 5px; cursor: pointer; }
+#ped-vd { margin: 2px 0; }
+.ped-track { display: flex; flex-direction: column; gap: 3px; }
+.ped-row { display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 7px; background: var(--parch2); }
+.ped-row.feito { background: rgba(78,122,63,.16); }
+.ped-ic { font-size: 13px; }
+.ped-nome { flex: 1; font-size: 14px; color: var(--ink); }
+.ped-res { font-family: "Cinzel", Georgia, serif; font-weight: 700; color: var(--ink); font-size: 15px; }
+.ped-aguard { color: var(--ink-soft); font-family: inherit; font-weight: 400; font-size: 12px; }
+.ped-ok { color: var(--green); font-weight: 700; font-size: 12px; }
+.ped-fail { color: var(--red); font-weight: 700; font-size: 12px; }
+.ped-prog { font-size: 12px; color: var(--ink-soft); margin-top: 8px; text-align: right; }
+.ped-jog-res { font-size: 15px; color: var(--ink); background: var(--parch2); border-radius: 7px; padding: 9px 11px; }
+.ped-jog-res b { font-family: "Cinzel", Georgia, serif; color: var(--wine); font-size: 18px; }
+.ped-jog-det { color: var(--ink-soft); font-size: 12px; margin-top: 3px; }
 
 /* ===================== Ficha estilo oficial (responsiva) ===================== */
 body.pagina-ficha { max-width: 1040px; }
