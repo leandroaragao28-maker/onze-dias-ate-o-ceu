@@ -10,12 +10,28 @@ function carregarFicha() {
   DB.onAuth(function (u) {
     Identidade.setUser(u ? { email: u.email, displayName: u.displayName } : null);
     if (atual) alvoEl.innerHTML = render(atual);
+    renderNavFicha();
   });
   DB.ouvirPersonagem(id, function (p) {
     if (!p) { alvoEl.innerHTML = '<div class="aviso">Personagem não encontrado.</div>'; return; }
     atual = p;
     alvoEl.innerHTML = render(p);
   });
+  // Lista completa só para a navbar saber o personagem do jogador (Identidade.meuId).
+  DB.ouvirPersonagens(function (lista) {
+    Identidade.setPersonagens(lista);
+    renderNavFicha();
+  });
+  renderNavFicha();
+}
+
+// Barra inferior na ficha: navega de volta ao painel na aba certa. Só com papel definido.
+function renderNavFicha() {
+  const nav = document.getElementById('navbar');
+  if (!nav || typeof Navbar === 'undefined') return;
+  if (!Identidade.papel()) { nav.hidden = true; document.body.classList.remove('com-nav'); return; }
+  nav.hidden = false; document.body.classList.add('com-nav');
+  nav.innerHTML = Navbar.montar({ abaAtiva: 'ficha', modo: 'ficha', badge: false });
 }
 
 window.ajPV = function (delta) {

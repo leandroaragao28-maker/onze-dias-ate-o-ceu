@@ -35,50 +35,71 @@
   <div id="aviso-config"></div>
   <div id="identidade" class="card"></div>
 
-  <div class="secao-titulo">Ordem de Iniciativa</div>
-  <div id="iniciativa" class="card"></div>
+  <section class="aba" data-aba="tripulacao">
+    <div class="secao-titulo">Resumo da Tripulação</div>
+    <div id="lista"><div class="carregando">Carregando…</div></div>
+  </section>
 
-  <div class="secao-titulo">Rolagem da Ficha</div>
-  <div id="rolagem-ficha" class="card"></div>
+  <section class="aba" data-aba="combate" hidden>
+    <div class="secao-titulo">Ordem de Iniciativa</div>
+    <div id="iniciativa" class="card"></div>
+  </section>
 
-  <div class="secao-titulo">Rolar Dados (livre)</div>
-  <div class="card">
-    <div class="rolador-topo">
-      <input id="r_autor" placeholder="Quem rola? (seu nome)">
-      <div class="vd">
-        <button class="vd-btn ativo" data-vd="0" onclick="setVD(this)">Normal</button>
-        <button class="vd-btn" data-vd="1" onclick="setVD(this)">Vantagem</button>
-        <button class="vd-btn" data-vd="-1" onclick="setVD(this)">Desvant.</button>
-      </div>
+  <section class="aba" data-aba="rolar" hidden>
+  <div class="secao-titulo">Rolagem</div>
+  <div id="roll-topo" class="roll-ctx"></div>
+  <div class="card rr-card" id="rolador">
+    <div class="rr-seg" id="r-vd">
+      <button class="vd-btn ativo" data-vd="0" onclick="setVD(this)">Normal</button>
+      <button class="vd-btn" data-vd="1" onclick="setVD(this)">Vantagem</button>
+      <button class="vd-btn" data-vd="-1" onclick="setVD(this)">Desvant.</button>
     </div>
-    <div id="resultado" class="resultado">—</div>
+    <div id="roll-ficha"></div>
+    <div class="rr-lbl"><span class="dia"></span>Resultado<span class="dia"></span></div>
+    <div class="rr-res"><span class="rr-ln"></span><div id="resultado" class="resultado">—</div><span class="rr-ln"></span></div>
     <div id="resultado-det" class="resultado-det"></div>
-    <div class="dados">
-      <button class="dado" onclick="rolarDado(20)">d20</button>
-      <button class="dado" onclick="rolarDado(12)">d12</button>
-      <button class="dado" onclick="rolarDado(10)">d10</button>
-      <button class="dado" onclick="rolarDado(8)">d8</button>
-      <button class="dado" onclick="rolarDado(6)">d6</button>
-      <button class="dado" onclick="rolarDado(4)">d4</button>
-      <button class="dado" onclick="rolarDado(100)">d%</button>
+    <div class="rr-lbl"><span class="dia"></span>Escolher dado<span class="dia"></span></div>
+    <div class="dado-strip">
+      <svg class="dado-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 L9 12 L15 19"/></svg>
+      <div class="dado-row" id="dado-row">
+        <button class="dado2 ativo" data-faces="20" onclick="selecionarDado(20)"><svg class="rr-die" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 L29 9.5 L29 22.5 L16 30 L3 22.5 L3 9.5 Z"/><path d="M16 2 L16 11 M3 9.5 L16 11 L29 9.5 M16 11 L8 22.5 M16 11 L24 22.5 M3 22.5 L8 22.5 L16 30 L24 22.5 L29 22.5 M8 22.5 L16 16 L24 22.5"/></svg><span>d20</span></button>
+        <button class="dado2" data-faces="12" onclick="selecionarDado(12)"><svg class="rr-die" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L29 12.5 L24 28 L8 28 L3 12.5 Z"/><path d="M16 3 L16 12 M3 12.5 L11 18 L8 28 M29 12.5 L21 18 L24 28 M11 18 L16 12 L21 18 L16 24 L11 18 M16 12 L16 24"/></svg><span>d12</span></button>
+        <button class="dado2" data-faces="10" onclick="selecionarDado(10)"><svg class="rr-die" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 L28 13 L16 30 L4 13 Z"/><path d="M4 13 L16 17 L28 13 M16 2 L16 17 M16 17 L16 30"/></svg><span>d10</span></button>
+        <button class="dado2" data-faces="8" onclick="selecionarDado(8)"><svg class="rr-die" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 L29 16 L16 30 L3 16 Z"/><path d="M3 16 L16 11 L29 16 M16 2 L16 11 M16 11 L16 30"/></svg><span>d8</span></button>
+        <button class="dado2" data-faces="6" onclick="selecionarDado(6)"><svg class="rr-die" viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="7" width="18" height="18" rx="3"/><circle class="dot" cx="12" cy="12" r="1.7"/><circle class="dot" cx="16" cy="16" r="1.7"/><circle class="dot" cx="20" cy="20" r="1.7"/></svg><span>d6</span></button>
+        <button class="dado2" data-faces="4" onclick="selecionarDado(4)"><svg class="rr-die" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 L29 27 L3 27 Z"/><path d="M16 3 L16 19 M3 27 L16 19 L29 27"/></svg><span>d4</span></button>
+        <button class="dado2" data-faces="100" onclick="selecionarDado(100)"><svg class="rr-die" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><line x1="11" y1="21" x2="21" y2="11"/><circle class="dot" cx="12.5" cy="12.5" r="2.3"/><circle class="dot" cx="19.5" cy="19.5" r="2.3"/></svg><span>d%</span></button>
+      </div>
+      <svg class="dado-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5 L15 12 L9 19"/></svg>
     </div>
+    <div class="rr-lbl"><span class="dia"></span>Modificador<span class="dia"></span></div>
     <div class="mod-linha">
-      <span>Modificador (aplicado aos botões)</span>
       <button class="btn-pv" onclick="ajMod(-1)">−</button>
       <input id="r_mod" type="number" value="0">
       <button class="btn-pv" onclick="ajMod(1)">+</button>
     </div>
+    <div class="rr-lbl"><span class="dia"></span>Fórmula livre<span class="dia"></span></div>
     <div class="formula-linha">
-      <input id="r_formula" placeholder="Fórmula livre: 2d6+3" onkeydown="if(event.key==='Enter')rolarFormula()">
-      <button class="btn btn-salvar" onclick="rolarFormula()">Rolar</button>
+      <input id="r_formula" placeholder="Ex.: 2d6 + 3 ou 1d20 + 5" oninput="aoDigitarFormula()" onkeydown="if(event.key==='Enter')rolar()">
     </div>
+    <button class="rr-rolar" onclick="rolar()">🎲 ROLAR</button>
   </div>
 
   <div class="secao-titulo">Rolagens Recentes</div>
   <div id="feed-rolagens"><div class="carregando">—</div></div>
+  </section>
 
-  <div class="secao-titulo">Resumo da Tripulação</div>
-  <div id="lista"><div class="carregando">Carregando…</div></div>
+  <section class="aba" data-aba="pedido" hidden>
+    <div class="secao-titulo">Pedido do Mestre</div>
+    <div id="pedido" class="card"></div>
+  </section>
+
+  <section class="aba" data-aba="admin" hidden>
+    <div class="secao-titulo">Administração</div>
+    <div id="admin" class="card"></div>
+  </section>
+
+  <nav id="navbar" class="navbar" hidden></nav>
 
   <div id="banner-update" class="banner banner-update">
     <span class="banner-txt">Nova versão disponível.</span>
@@ -90,6 +111,29 @@
     <button class="banner-x" aria-label="Fechar">✕</button>
   </div>
 
+  <!-- Tela inicial: escolha de papel (Mestre / Jogador / Visitante) -->
+  <div id="gate" class="gate" hidden>
+    <div class="gate-card">
+      <div class="gate-emblema">⚓</div>
+      <h2 class="gate-titulo">Onze Dias Até o Céu</h2>
+      <p class="gate-sub">Quem entra a bordo?</p>
+      <div id="gate-opcoes"></div>
+      <div id="gate-msg" class="gate-msg"></div>
+      <div id="gate-foot" class="gate-foot"></div>
+    </div>
+  </div>
+
+  <!-- Tela de escolha de personagem (jogador sem ficha vinculada) -->
+  <div id="escolha" class="gate" hidden>
+    <div class="gate-card">
+      <div class="gate-emblema">⚓</div>
+      <h2 class="gate-titulo">Escolha seu personagem</h2>
+      <p class="gate-sub">Toque na ficha que é sua</p>
+      <div id="escolha-opcoes"></div>
+      <div id="escolha-foot" class="gate-foot"></div>
+    </div>
+  </div>
+
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
@@ -97,6 +141,7 @@
   <script src="js/db.js"></script>
   <script src="js/identidade.js"></script>
   <script src="js/brasoes.js"></script>
+  <script src="js/navbar.js"></script>
   <script src="js/app.js"></script>
   <script src="js/pwa.js"></script>
 </body>

@@ -35,6 +35,8 @@ window.DB = (function () {
         return {
           autor: r.autor, formula: r.formula, detalhe: r.detalhe, total: r.total,
           _crit: r.crit || 0, tipo: r.tipo || 'livre', rotulo: r.rotulo || '',
+          pedidoId: r.pedidoId || null, charId: r.charId || null,
+          sucesso: (r.sucesso === undefined ? null : r.sucesso),
           timestamp: r.timestamp && r.timestamp.toMillis ? r.timestamp.toMillis() : Date.now()
         };
       }));
@@ -45,6 +47,13 @@ window.DB = (function () {
     db.collection('estado').doc('combate').onSnapshot(function (d) {
       cb(d.exists ? d.data() : null);
     }, function (e) { console.warn('combate:', e); });
+  }
+
+  // Pedido de rolagem do mestre (Fase C): doc único estado/pedido, espelhado ao vivo.
+  function ouvirPedido(cb) {
+    db.collection('estado').doc('pedido').onSnapshot(function (d) {
+      cb(d.exists ? d.data() : null);
+    }, function (e) { console.warn('pedido:', e); });
   }
 
   // ----- Gravações -----
@@ -58,6 +67,10 @@ window.DB = (function () {
   }
   function salvarCombate(obj) {
     return db.collection('estado').doc('combate').set(obj || { ativo: false, round: 0, turno: 0, ordem: [] });
+  }
+  // Grava/limpa o pedido de rolagem do mestre (estado/pedido). Só o mestre passa nas regras.
+  function salvarPedido(obj) {
+    return db.collection('estado').doc('pedido').set(obj || { ativo: false });
   }
   // Apaga TODO o histórico de rolagens (só o mestre passa nas regras).
   function limparRolagens() {
@@ -86,13 +99,19 @@ window.DB = (function () {
   function reivindicar(id, emailDono) {
     return db.collection('personagens').doc(id).update({ owner_email: emailDono });
   }
+  // Admin (mestre): define/limpa o dono de qualquer ficha. '' = sem dono.
+  function definirDono(id, email) {
+    return db.collection('personagens').doc(id).update({ owner_email: email || '' });
+  }
 
   return {
     configurado: configurado,
     ouvirPersonagens: ouvirPersonagens, ouvirPersonagem: ouvirPersonagem,
-    ouvirRolagens: ouvirRolagens, ouvirCombate: ouvirCombate,
+    ouvirRolagens: ouvirRolagens, ouvirCombate: ouvirCombate, ouvirPedido: ouvirPedido,
     ajustarPV: ajustarPV, registrarRolagem: registrarRolagem,
-    salvarCombate: salvarCombate, salvarPersonagem: salvarPersonagem, limparRolagens: limparRolagens,
-    onAuth: onAuth, usuario: usuario, entrar: entrar, sair: sair, reivindicar: reivindicar
+    salvarCombate: salvarCombate, salvarPedido: salvarPedido,
+    salvarPersonagem: salvarPersonagem, limparRolagens: limparRolagens,
+    onAuth: onAuth, usuario: usuario, entrar: entrar, sair: sair,
+    reivindicar: reivindicar, definirDono: definirDono
   };
 })();
