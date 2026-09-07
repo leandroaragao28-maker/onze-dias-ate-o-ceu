@@ -1,0 +1,18 @@
+# Mantém a árvore de trabalho em LF, igual ao que o repositório guarda e ao
+# que o Firebase Hosting serve.
+#
+# Sem isto, o core.autocrlf=true desta máquina reescreve todo arquivo de texto
+# em CRLF a cada checkout/merge. O conteúdo não muda, mas os bytes sim: um
+# "firebase deploy" a partir de uma árvore recém-checada reenviaria todos os
+# arquivos e forçaria a reinstalação do service worker em cada jogador.
+* text=auto eol=lf
+
+# Binários — nunca converter.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
